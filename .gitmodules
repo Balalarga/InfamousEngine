@@ -4,9 +4,12 @@
 [submodule "ThirdParty/fmt"]
 	path = ThirdParty/fmt
 	url = https://github.com/fmtlib/fmt.git
-[submodule "ThirdParty/RapidJson"]
-	path = ThirdParty/RapidJson
-	url = https://github.com/Tencent/rapidjson.git
 [submodule "ThirdParty/Cereal"]
 	path = ThirdParty/Cereal
 	url = https://github.com/USCiLab/cereal.git
+[submodule "ThirdParty/RapidJson"]
+	path = ThirdParty/RapidJson
+	url = https://github.com/Tencent/rapidjson.git
+[submodule "ThirdParty/Glm"]
+	path = ThirdParty/Glm
+	url = https://github.com/g-truc/glm.git

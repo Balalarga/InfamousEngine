@@ -1,0 +1,21 @@
+﻿#pragma once
+#include <optional>
+#include <string>
+
+#include "FileStream.h"
+
+class FileSystem
+{
+public:
+	static bool Exists(const std::string& path);
+	static bool IsFile(const std::string& path);
+	static bool IsDir(const std::string& path);
+
+	static bool CreateFile(const std::string& path, bool bCreateSubDirectories = true);
+	static bool CreateDirectory(const std::string& path, bool bRecursive = true);
+
+	static InputFileStream ReadFile(const std::string& path, bool autoClose = true);
+	static std::optional<std::string> ReadAllFile(const std::string& path);
+	
+	static OutputFileStream WriteFile(const std::string& path, bool autoClose = true, bool bCreateSubDirectories = true);
+};

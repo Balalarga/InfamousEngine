@@ -1,0 +1,17 @@
+#pragma once
+
+#include <glm.hpp>
+#include <variant>
+
+namespace ogw
+{
+using UniformValue = std::variant<unsigned,
+								  int,
+								  float,
+								  glm::vec2,
+								  glm::vec3,
+								  glm::vec4,
+								  glm::mat2,
+								  glm::mat3,
+								  glm::mat4>;
+}

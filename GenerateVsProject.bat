@@ -1,7 +1,7 @@
 @echo off
     mkdir VsProject
     cd VsProject
-    cmake ..
+    cmake ../Test
     cd ..
     pause
 @echo on
