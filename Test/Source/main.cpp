@@ -10,8 +10,5 @@ int main(int argc, char** argv)
     if (!stream)
         return -1;
 
-    int a = 11;
-    stream << a;
-
     return 0;
 }

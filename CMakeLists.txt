@@ -22,6 +22,11 @@ include(Utils)
 set(MODULES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 ListOfDirectChildDirectories(MODULES_LIST ${MODULES_DIR})
 
+
+add_subdirectory(${THIRDPARTY_DIR} ThirdParty)
+target_include_directories(${PROJECT_NAME} INTERFACE ${THIRDPARTY_DIR})
+target_link_libraries(${PROJECT_NAME} INTERFACE ${THIRDPARTY_DIR})
+
 foreach(MODULE ${MODULES_LIST})
     if(EXISTS ${MODULES_DIR}/${MODULE}/CMakeLists.txt)
         add_subdirectory(${MODULES_DIR}/${MODULE} ${MODULE})
