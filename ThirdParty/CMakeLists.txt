@@ -4,6 +4,7 @@ project(ThirdParty LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
 
 # GLEW setup
 set(GLEW_DIR ${THIRDPARTY_DIR}/GLEW)
@@ -66,3 +67,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER ThirdParty)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LIBS})
 target_link_directories(${PROJECT_NAME} PUBLIC ${ADDITIONAL_LINK_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${ADDITIONAL_INCLUDE_DIRS})
+
+foreach(Binary ${BINARIES})
+    message("Copy files from ${Binary} -> ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug")
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${Binary} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+endforeach()

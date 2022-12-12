@@ -2,13 +2,18 @@
 
 #include "FileSystem/FileSystem.h"
 
+#include "UnknownEngine/Engine.h"
+
+using namespace Unk;
 
 int main(int argc, char** argv)
 {
     std::cout << "Hello world\n";
-    OutputFileStream stream = FileSystem::WriteFile("NewFolder/NewFolder/File.txt");
-    if (!stream)
-        return -1;
+
+    Engine& engine = Engine::Self();
+    engine.CreateWindow<GameWindow>();
+
+    engine.Run();
 
     return 0;
 }

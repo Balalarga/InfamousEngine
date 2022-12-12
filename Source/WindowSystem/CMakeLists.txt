@@ -1,0 +1,3 @@
+include(BuildSystem)
+
+DefineDefaultModuleWithDependencies(WindowSystem ThirdParty)

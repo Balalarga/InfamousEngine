@@ -1,4 +1,4 @@
 include(BuildSystem)
 
 
-DefineDefaultModuleWithDependencies(OpenglWrap Utility ThirdParty)
+DefineDefaultModuleWithDependencies(OpenglWrap Utility Logger WindowSystem ThirdParty)
