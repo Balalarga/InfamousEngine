@@ -1,6 +1,6 @@
 ﻿#include "TextureManager.h"
 
-#include <vec2.hpp>
+#include <glm/vec2.hpp>
 #include "Texture2d.h"
 #include "Stb/stb_image.h"
 

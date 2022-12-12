@@ -16,16 +16,16 @@ if(WIN32)
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 endif()
 
+add_subdirectory(${THIRDPARTY_DIR} ThirdParty)
+
 add_library(${PROJECT_NAME} INTERFACE)
 
 include(Utils)
 set(MODULES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 ListOfDirectChildDirectories(MODULES_LIST ${MODULES_DIR})
 
-
-add_subdirectory(${THIRDPARTY_DIR} ThirdParty)
-target_include_directories(${PROJECT_NAME} INTERFACE ${THIRDPARTY_DIR})
-target_link_libraries(${PROJECT_NAME} INTERFACE ${THIRDPARTY_DIR})
+target_include_directories(${PROJECT_NAME} INTERFACE ThirdParty)
+target_link_libraries(${PROJECT_NAME} INTERFACE ThirdParty)
 
 foreach(MODULE ${MODULES_LIST})
     if(EXISTS ${MODULES_DIR}/${MODULE}/CMakeLists.txt)
@@ -38,3 +38,4 @@ foreach(MODULE ${MODULES_LIST})
     endif()
 endforeach()
 
+add_subdirectory(Test)

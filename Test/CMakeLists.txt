@@ -8,12 +8,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
 
 # Resources folder
-set(RESOURCES_DIR ${CMAKE_SOURCE_DIR}/Assets)
-
-add_subdirectory(../ UnknownEngine)
+set(RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Assets)
 
 # Source files
-file(GLOB_RECURSE PROJECT_SOURCES Source/*.cpp Source/*.h Source/*.hpp)
+file(GLOB_RECURSE PROJECT_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/*.hpp)
 
 # Find all resources
 file(GLOB_RECURSE RESOURCE_FILES ${RESOURCES_DIR}/*)
@@ -28,6 +29,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE Source)
 target_link_libraries (${PROJECT_NAME} LINK_PUBLIC UnknownEngine)
 target_include_directories(${PROJECT_NAME} PUBLIC UnknownEngine)
 
-if (EXISTS ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
-    configure_file(${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json COPYONLY)
+if (EXISTS ${CMAKE_BINARY_DIR}/compile_commands.json)
+    configure_file(${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json COPYONLY)
 endif()
