@@ -1,3 +1,5 @@
+#define SDL_MAIN_HANDLED
+
 #include <iostream>
 
 #include "FileSystem/FileSystem.h"
@@ -6,7 +8,7 @@
 
 using namespace Unk;
 
-int main(int argc, char** argv)
+int main(int, char**)
 {
     std::cout << "Hello world\n";
 

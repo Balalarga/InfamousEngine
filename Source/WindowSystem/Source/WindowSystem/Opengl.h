@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include <SDL_video.h>
-
+#include <SDL.h>
 #include "glm/glm.hpp"
 
 namespace Unk
@@ -14,6 +13,6 @@ public:
 	static inline void SetClearColor(const SDL_Color& color);
 	static inline void SetClearColor(const glm::vec4& color);
 
-	static inline void SetAttribute(SDL_GLattr name, int val);
+	static void SetAttribute(SDL_GLattr name, int val) { SDL_GL_SetAttribute(name, val); }
 };
 }

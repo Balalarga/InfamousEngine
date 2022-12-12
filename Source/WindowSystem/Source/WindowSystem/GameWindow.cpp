@@ -35,12 +35,12 @@ GameWindow::GameWindow(const Initializer& initializer):
 
 	SDL_GL_MakeCurrent(_sdlWindow, _openglContext);
 
-	// Opengl::SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	// Opengl::SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	// Opengl::SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
-	// Opengl::SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	// Opengl::SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	// Opengl::SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	Opengl::SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	Opengl::SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	Opengl::SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+	Opengl::SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	Opengl::SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	Opengl::SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 	++sWindowCounter;
 }

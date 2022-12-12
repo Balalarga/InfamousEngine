@@ -18,9 +18,4 @@ inline void Opengl::SetClearColor(const glm::vec4& color)
 {
 	glClearColor(color.r, color.g, color.b, color.a);
 }
-
-inline void Opengl::SetAttribute(SDL_GLattr name, int val)
-{
-	SDL_GL_SetAttribute(name, val);
-}
 }
