@@ -41,6 +41,14 @@ InputFileStream FileSystem::ReadFile(const std::string& path, bool autoClose)
 	return {};
 }
 
+InputFileStream FileSystem::ReadFile(const std::string& path, FileStreamDataMode mode, bool autoClose)
+{
+	if (Exists(path))
+		return InputFileStream(path, mode, autoClose);
+
+	return {};
+}
+
 std::optional<std::string> FileSystem::ReadAllFile(const std::string& path)
 {
 	InputFileStream stream(path);
@@ -57,4 +65,13 @@ OutputFileStream FileSystem::WriteFile(const std::string& path, bool autoClose, 
 		create_directories(filepath.parent_path());
 
 	return OutputFileStream(path, autoClose);
+}
+
+OutputFileStream FileSystem::WriteFile(const std::string& path, FileStreamDataMode mode, bool autoClose, bool bCreateSubDirectories)
+{
+	std::filesystem::path filepath(path);
+	if (bCreateSubDirectories && filepath.has_parent_path())
+		create_directories(filepath.parent_path());
+
+	return OutputFileStream(path, mode, autoClose);
 }

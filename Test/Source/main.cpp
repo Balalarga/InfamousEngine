@@ -1,15 +1,17 @@
 #include <iostream>
 
-#include "ThirdParty/FileSystem/FileSystem.h"
+#include <FileSystem/FileSystem.h>
 
 int main(int argc, char** argv)
 {
     std::cout << "Hello world\n";
-    OutputFileStream stream = FileSystem::WriteFile("NewFolder/NewFolder/File.txt");
+
+    OutputFileStream stream = FileSystem::WriteFile("GeneratedFromCodeDirectory/GeneratedFile.txt");
     if (!stream)
         return -1;
 
-    stream << "SomeText";
+    int a = 11;
+    stream << a;
 
     return 0;
 }

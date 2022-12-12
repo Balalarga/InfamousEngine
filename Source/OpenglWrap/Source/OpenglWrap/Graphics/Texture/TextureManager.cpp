@@ -2,7 +2,7 @@
 
 #include <vec2.hpp>
 #include "Texture2d.h"
-#include "ThirdParty/stb/stb_image.h"
+#include "Stb/stb_image.h"
 
 namespace ogw
 {

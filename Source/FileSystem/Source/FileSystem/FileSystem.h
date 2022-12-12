@@ -2,7 +2,8 @@
 #include <optional>
 #include <string>
 
-#include "FileStream.h"
+#include "FileStream/InputFileStream.h"
+#include "FileStream/OutputFileStream.h"
 
 class FileSystem
 {
@@ -15,7 +16,9 @@ public:
 	static bool CreateDirectory(const std::string& path, bool bRecursive = true);
 
 	static InputFileStream ReadFile(const std::string& path, bool autoClose = true);
+	static InputFileStream ReadFile(const std::string& path, FileStreamDataMode mode, bool autoClose = true);
 	static std::optional<std::string> ReadAllFile(const std::string& path);
 	
 	static OutputFileStream WriteFile(const std::string& path, bool autoClose = true, bool bCreateSubDirectories = true);
+	static OutputFileStream WriteFile(const std::string& path, FileStreamDataMode mode, bool autoClose = true, bool bCreateSubDirectories = true);
 };

@@ -6,6 +6,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/CMake")
+
 set(THIRDPARTY_DIR ThirdParty)
 
 # GLEW setup
@@ -39,6 +43,7 @@ endif()
 
 # FMT setup
 add_subdirectory(${THIRDPARTY_DIR}/fmt fmt)
+set_target_properties(fmt PROPERTIES FOLDER ThirdParty)
 set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/fmt/include)
 set(PROJECT_LIBS ${PROJECT_LIBS} fmt)
 
@@ -74,14 +79,38 @@ set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/Cereal/
 set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/Glm/glm)
 
 # Find all source files
-file(GLOB_RECURSE PROJECT_SOURCES Sources/*.cpp Sources/*.h Sources/*.hpp)
+macro(list_subdirectories retval curdir)
+    file(GLOB sub-dir LIST_DIRECTORIES true RELATIVE ${curdir} ${curdir}/*)
+    set(list_of_dirs "")
+    foreach(dir ${sub-dir})
+        if(IS_DIRECTORY ${curdir}/${dir})
+            set(list_of_dirs ${list_of_dirs} ${dir})
+        endif()
+    endforeach()
+    set(${retval} ${list_of_dirs})
+endmacro()
+
+set(MODULES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+list_subdirectories(MODULES_LIST ${MODULES_DIR})
+
+message(list_subdirectories)
+foreach(MODULE ${MODULES_LIST})
+    if(EXISTS ${MODULES_DIR}/${MODULE}/CMakeLists.txt)
+        add_subdirectory(${MODULES_DIR}/${MODULE} ${MODULE})
+        get_property(MODULE_TARGET DIRECTORY ${MODULES_DIR}/${MODULE} PROPERTY BUILDSYSTEM_TARGETS)
+        set_target_properties(${MODULE_TARGET} PROPERTIES FOLDER UnknownEngine)
+        set (PROJECT_LIBS ${PROJECT_LIBS} ${MODULE_TARGET})
+        set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${MODULE_TARGET})
+        message("Added submodule ${MODULE_TARGET}")
+    endif()
+endforeach()
 
 # Add targer
 add_library(${PROJECT_NAME} ${PROJECT_SOURCES} ${ADDITIONAL_SOURCES})
 
 # Libraries linking
 target_link_directories(${PROJECT_NAME} PUBLIC ${ADDITIONAL_LINK_DIRS})
-target_link_libraries(${PROJECT_NAME} ${PROJECT_LIBS})
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LIBS})
 target_include_directories(${PROJECT_NAME} PUBLIC Sources ${ADDITIONAL_INCLUDE_DIRS})
 
 # Copy dll files
