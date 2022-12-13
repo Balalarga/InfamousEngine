@@ -38,4 +38,12 @@ foreach(MODULE ${MODULES_LIST})
     endif()
 endforeach()
 
-add_subdirectory(Test)
+add_subdirectory(Test ${CMAKE_BINARY_DIR}/Bin)
+
+get_property(Test_Target DIRECTORY Test PROPERTY BUILDSYSTEM_TARGETS)
+set_target_properties(${Test_Target}
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Bin"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Bin"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Bin"
+)

@@ -29,6 +29,13 @@ target_include_directories(${PROJECT_NAME} PRIVATE Source)
 target_link_libraries (${PROJECT_NAME} LINK_PUBLIC UnknownEngine)
 target_include_directories(${PROJECT_NAME} PUBLIC UnknownEngine)
 
+foreach(Binary ${UNKNOWN_ENGINE_THIRDPARTY_DLLS})
+    message("Copy files from ${Binary} -> ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${Binary} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+endforeach()
+
 if (EXISTS ${CMAKE_BINARY_DIR}/compile_commands.json)
     configure_file(${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json COPYONLY)
 endif()

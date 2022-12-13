@@ -12,7 +12,7 @@ class GameWindow
 public:
 	struct Initializer
 	{
-		std::string Title = "UnknownEngineWindow";
+		std::string Title = "UnknownGame";
 		Uint32 Subsystems = SDL_INIT_EVERYTHING;
 		SDL_Point Size = {1280, 720};
 		SDL_Point Pos = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};

@@ -1,3 +1,4 @@
 include(BuildSystem)
 
-DefineDefaultModuleWithDependencies(Logger fmt)
+DefineDefaultModule(Logger)
+AddPublicModuleDependency(Logger fmt)

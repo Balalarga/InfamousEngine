@@ -1,3 +1,4 @@
 include(BuildSystem)
 
-DefineDefaultModuleWithDependencies(WindowSystem ThirdParty)
+DefineDefaultModule(WindowSystem)
+AddPublicModuleDependency(WindowSystem ThirdParty)
