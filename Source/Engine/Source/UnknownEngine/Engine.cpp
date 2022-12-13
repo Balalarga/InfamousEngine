@@ -22,9 +22,10 @@ void Engine::Run()
 	assert(_window);
 
 	uint32_t updateTimer = 0;
+	uint32_t frameTime = 0;
 	while (!_window->IsClosing())
 	{
-		Uint32 frameBegin = SDL_GetTicks(); // TODO: Remove sdl-based code
+		uint32_t frameBegin = SDL_GetTicks(); // TODO: Remove sdl-based code
 		_window->GetInputManager().HandleEvent();
 
 		if (updateTimer >= _upsMs)
@@ -35,7 +36,7 @@ void Engine::Run()
 
 		_window->Render();
 
-		Uint32 frameTime = SDL_GetTicks() - frameBegin;
+		frameTime = SDL_GetTicks() - frameBegin;
 		if (frameTime < _fpsMs)
 		{
 			SDL_Delay(_fpsMs - frameTime);

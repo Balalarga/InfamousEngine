@@ -1,5 +1,7 @@
 ﻿#include "InputManager.h"
 
+#include <imgui_impl_sdl.h>
+
 #include "GameWindow.h"
 
 namespace Unk
@@ -34,7 +36,7 @@ void InputManager::HandleEvent()
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
-		// ImGui_ImplSDL2_ProcessEvent(&event);
+		ImGui_ImplSDL2_ProcessEvent(&e);
 		switch(e.type)
 		{
 			case SDL_QUIT:

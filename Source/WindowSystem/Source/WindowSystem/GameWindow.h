@@ -18,6 +18,8 @@ public:
 		SDL_Point Pos = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};
 		bool IsFullScreen = false;
 		SDL_WindowFlags Flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+
+		const char* imguiGlVersion = "#version 450";
 	};
 
 	GameWindow(const Initializer& initializer = {});

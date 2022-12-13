@@ -46,21 +46,14 @@ set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/RapidJs
 # Cereal setup
 set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/Cereal/include)
 
-set(USE_IMGUI ON)
-if (${USE_IMGUI})
 # ImGui setup
-    add_compile_definitions(USE_IMGUI = 1)
-    
-    file(GLOB ADDITIONAL_SOURCES ${THIRDPARTY_DIR}/ImGui/*.cpp ${THIRDPARTY_DIR}/ImGui/*.h ${THIRDPARTY_DIR}/ImGui/*.hpp)
-    set(ADDITIONAL_SOURCES ${ADDITIONAL_SOURCES}
-        # Main Imgui files
-       ${THIRDPARTY_DIR}/ImGui/backends/imgui_impl_sdl.cpp
-       ${THIRDPARTY_DIR}/ImGui/backends/imgui_impl_opengl3.cpp)
-    set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/ImGui/)
-    set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/ImGui/backends/)
-else()
-    add_compile_definitions(USE_IMGUI = 0)
-endif()
+file(GLOB ADDITIONAL_SOURCES ${THIRDPARTY_DIR}/ImGui/*.cpp ${THIRDPARTY_DIR}/ImGui/*.h ${THIRDPARTY_DIR}/ImGui/*.hpp)
+set(ADDITIONAL_SOURCES ${ADDITIONAL_SOURCES}
+    # Main Imgui files
+    ${THIRDPARTY_DIR}/ImGui/backends/imgui_impl_sdl.cpp
+    ${THIRDPARTY_DIR}/ImGui/backends/imgui_impl_opengl3.cpp)
+set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/ImGui/)
+set(ADDITIONAL_INCLUDE_DIRS ${ADDITIONAL_INCLUDE_DIRS} ${THIRDPARTY_DIR}/ImGui/backends/)
 
 add_library(${PROJECT_NAME} ${ADDITIONAL_SOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER ThirdParty)

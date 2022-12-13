@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 #include <cassert>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_sdl.h>
 
 #include "Opengl.h"
 
@@ -14,7 +16,12 @@ GameWindow::GameWindow(const Initializer& initializer):
 	_inputManager(*this)
 {
 	if (sWindowCounter == 0)
+	{
 		assert(SDL_Init(initializer.Subsystems) == 0);
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGui::StyleColorsDark();
+	}
 
 	_sdlWindow = SDL_CreateWindow(_initializer.Title.c_str(),
 								  _initializer.Pos.x,
@@ -31,6 +38,9 @@ GameWindow::GameWindow(const Initializer& initializer):
 	{
 		glewExperimental = GL_TRUE;
 		assert(glewInit() == GLEW_OK);
+
+		ImGui_ImplSDL2_InitForOpenGL(_sdlWindow, _openglContext);
+		ImGui_ImplOpenGL3_Init(_initializer.imguiGlVersion);
 	}
 
 	SDL_GL_MakeCurrent(_sdlWindow, _openglContext);
@@ -50,6 +60,10 @@ GameWindow::~GameWindow()
 	--sWindowCounter;
 	if (sWindowCounter == 0)
 	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplSDL2_Shutdown();
+		ImGui::DestroyContext();
+
 		SDL_GL_DeleteContext(_openglContext);
 		SDL_DestroyWindow(_sdlWindow);
 		SDL_Quit();
@@ -58,6 +72,18 @@ GameWindow::~GameWindow()
 
 void GameWindow::Render()
 {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::Begin("Window");
+	ImGui::End();
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	SDL_GL_SwapWindow(_sdlWindow);
 }
 
