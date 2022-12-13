@@ -1,7 +1,5 @@
 ﻿#include "Engine.h"
 
-#include <cassert>
-
 namespace Unk
 {
 Engine& Engine::Self()
@@ -51,6 +49,18 @@ void Engine::Run()
 void Engine::Destroy()
 {
 	_window.reset();
+}
+
+InputManager& Engine::GetInputManager() const
+{
+	assert(_window);
+	return _window->GetInputManager();
+}
+
+void Engine::RequestClosing() const
+{
+	if (_window && !_window->IsClosing())
+		_window->Close();
 }
 
 void Engine::SetFramePerSecond(uint32_t fps)

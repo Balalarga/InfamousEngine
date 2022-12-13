@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <cassert>
 #include <memory>
 
 #include "WindowSystem/GameWindow.h"
@@ -15,10 +16,17 @@ public:
 	void Run();
 
 	template<class T, class ...TArgs>
-	std::enable_if_t<std::derived_from<T, GameWindow>, void> CreateWindow(TArgs&& ...args)
+	std::enable_if_t<std::derived_from<T, GameWindow>, T*> CreateWindow(TArgs&& ...args)
 	{
+		assert(!_window);
 		_window = std::make_unique<T>(std::forward<TArgs>(args)...);
+		return _window.get();
 	}
+
+	GameWindow* GetWindow() const { return _window.get(); }
+	InputManager& GetInputManager() const;
+
+	void RequestClosing() const;
 
 	void SetFramePerSecond(uint32_t fps);
 	void SetUpdatePerSecond(uint32_t ups);
