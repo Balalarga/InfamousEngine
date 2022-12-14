@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(UnknownEngine LANGUAGES CXX)
+project(InfamousEngine LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,7 +33,7 @@ foreach(MODULE ${MODULES_LIST})
         target_include_directories(${PROJECT_NAME} INTERFACE ${MODULE})
         target_link_libraries(${PROJECT_NAME} INTERFACE ${MODULE})
         get_property(MODULE_TARGET DIRECTORY ${MODULES_DIR}/${MODULE} PROPERTY BUILDSYSTEM_TARGETS)
-        set_target_properties(${MODULE_TARGET} PROPERTIES FOLDER UnknownEngine)
+        set_target_properties(${MODULE_TARGET} PROPERTIES FOLDER InfamousEngine)
         message("Added submodule ${MODULE_TARGET}(${MODULE})")
     endif()
 endforeach()

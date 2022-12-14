@@ -3,7 +3,7 @@
 #include <vector>
 #include <GL/glew.h>
 
-namespace Unk
+namespace Inf
 {
 ShaderPart::ShaderPart(Type type, const std::string& code):
 	_type(type),

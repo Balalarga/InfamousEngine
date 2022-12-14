@@ -6,7 +6,7 @@
 #include "Uniform.h"
 
 
-namespace Unk
+namespace Inf
 {
 class ShaderPart;
 

@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include "glm/glm.hpp"
 
-namespace Unk
+namespace Inf
 {
 class Opengl
 {

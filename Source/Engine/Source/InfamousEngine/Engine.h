@@ -4,7 +4,7 @@
 
 #include "WindowSystem/GameWindow.h"
 
-namespace Unk
+namespace Inf
 {
 class Engine
 {

@@ -2,7 +2,7 @@
 
 #include "GL/glew.h"
 
-namespace Unk
+namespace Inf
 {
 inline void Opengl::SetClearColor(const SDL_Color& color)
 {

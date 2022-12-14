@@ -3,7 +3,7 @@
 #include <functional>
 #include <SDL.h>
 
-namespace Unk
+namespace Inf
 {
 class GameWindow;
 

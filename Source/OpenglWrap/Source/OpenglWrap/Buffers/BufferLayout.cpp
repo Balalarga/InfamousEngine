@@ -1,7 +1,7 @@
 ﻿#include "BufferLayout.h"
 #include <GL/glew.h>
 
-namespace Unk
+namespace Inf
 {
 BufferLayout& BufferLayout::Float(unsigned count)
 {

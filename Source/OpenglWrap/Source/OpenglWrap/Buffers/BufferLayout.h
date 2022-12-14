@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <vector>
 
-namespace Unk
+namespace Inf
 {
 class BufferLayout
 {

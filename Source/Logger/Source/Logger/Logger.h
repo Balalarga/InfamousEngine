@@ -5,7 +5,7 @@
 #include <memory>
 #include "fmt/format.h"
 
-namespace Unk
+namespace Inf
 {
 class ILogOutputDevice;
 

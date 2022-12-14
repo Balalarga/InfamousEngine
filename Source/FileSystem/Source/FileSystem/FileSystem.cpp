@@ -1,6 +1,8 @@
 ﻿#include "FileSystem.h"
 #include <filesystem>
 
+namespace Inf
+{
 bool FileSystem::Exists(const std::string& path)
 {
 	return std::filesystem::exists(path);
@@ -74,4 +76,5 @@ OutputFileStream FileSystem::WriteFile(const std::string& path, FileStreamDataMo
 		create_directories(filepath.parent_path());
 
 	return OutputFileStream(path, mode, autoClose);
+}
 }

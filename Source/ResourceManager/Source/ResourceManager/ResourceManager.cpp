@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 
-namespace Unk
+namespace Inf
 {
 
 }

@@ -3,7 +3,7 @@
 #include <string>
 #include "Logger.h"
 
-namespace Unk
+namespace Inf
 {
 class ILogOutputDevice
 {

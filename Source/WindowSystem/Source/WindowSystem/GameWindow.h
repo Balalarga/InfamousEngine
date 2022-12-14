@@ -5,7 +5,7 @@
 
 #include "Input/InputManager.h"
 
-namespace Unk
+namespace Inf
 {
 class GameWindow
 {

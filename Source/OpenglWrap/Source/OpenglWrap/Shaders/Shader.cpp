@@ -6,7 +6,7 @@
 
 #include "ShaderPart.h"
 
-namespace Unk
+namespace Inf
 {
 bool HasErrors(unsigned shaderId)
 {

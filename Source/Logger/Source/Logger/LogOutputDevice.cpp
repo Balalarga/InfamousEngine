@@ -1,7 +1,7 @@
 #include "LogOutputDevice.h"
 #include <iostream>
 
-namespace Unk
+namespace Inf
 {
 void ILogOutputDevice::SetMinLogLevel(LogLevel level)
 {

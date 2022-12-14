@@ -2,14 +2,12 @@
 
 #include "FileSystem/FileSystem.h"
 
-#include "UnknownEngine/Engine.h"
+#include "InfamousEngine/Engine.h"
 
-using namespace Unk;
+using namespace Inf;
 
 int main(int, char**)
 {
-    std::cout << "Hello world\n";
-
     Engine& engine = Engine::Self();
     engine.CreateWindow<GameWindow>();
 

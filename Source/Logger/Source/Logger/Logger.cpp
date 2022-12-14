@@ -1,7 +1,7 @@
 #include "Logger.h"
 #include "LogOutputDevice.h"
 
-namespace Unk
+namespace Inf
 {
 Logger& Logger::Self()
 {

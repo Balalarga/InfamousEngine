@@ -7,7 +7,7 @@
 
 #include "Opengl.h"
 
-namespace Unk
+namespace Inf
 {
 static int sWindowCounter = 0;
 

@@ -1,7 +1,7 @@
 #include "Buffer.h"
 #include <GL/glew.h>
 
-namespace Unk
+namespace Inf
 {
 DataPtr::DataPtr():
     Ptr(nullptr),

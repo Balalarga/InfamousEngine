@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <string>
 
-namespace Unk
+namespace Inf
 {
 class ShaderPart
 {

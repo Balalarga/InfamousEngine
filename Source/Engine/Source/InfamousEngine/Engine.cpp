@@ -1,6 +1,6 @@
 ﻿#include "Engine.h"
 
-namespace Unk
+namespace Inf
 {
 Engine& Engine::Self()
 {

@@ -5,6 +5,8 @@
 #include "FileStream/InputFileStream.h"
 #include "FileStream/OutputFileStream.h"
 
+namespace Inf
+{
 class FileSystem
 {
 public:
@@ -22,3 +24,4 @@ public:
 	static OutputFileStream WriteFile(const std::string& path, bool autoClose = true, bool bCreateSubDirectories = true);
 	static OutputFileStream WriteFile(const std::string& path, FileStreamDataMode mode, bool autoClose = true, bool bCreateSubDirectories = true);
 };
+}

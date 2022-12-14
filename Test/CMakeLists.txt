@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(UnknownEngineTester LANGUAGES CXX)
+project(SandboxApplication LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -26,8 +26,8 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE "RESOURCES_DIR=\"${RESOURCES_
 set_target_properties(${PROJECT_NAME} PROPERTIES RESOURCE "${RESOURCE_FILES}")
 
 target_include_directories(${PROJECT_NAME} PRIVATE Source)
-target_link_libraries (${PROJECT_NAME} LINK_PUBLIC UnknownEngine)
-target_include_directories(${PROJECT_NAME} PUBLIC UnknownEngine)
+target_link_libraries (${PROJECT_NAME} LINK_PUBLIC InfamousEngine)
+target_include_directories(${PROJECT_NAME} PUBLIC InfamousEngine)
 
 foreach(Binary ${UNKNOWN_ENGINE_THIRDPARTY_DLLS})
     message("Copy files from ${Binary} -> ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")

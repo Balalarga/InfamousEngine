@@ -4,7 +4,7 @@
 
 #include "GameWindow.h"
 
-namespace Unk
+namespace Inf
 {
 InputManager::InputManager(GameWindow& window):
 	_window(window)

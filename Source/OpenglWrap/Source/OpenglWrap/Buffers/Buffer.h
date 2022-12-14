@@ -2,7 +2,7 @@
 
 #include "BufferLayout.h"
 
-namespace Unk
+namespace Inf
 {
 struct DataPtr
 {
