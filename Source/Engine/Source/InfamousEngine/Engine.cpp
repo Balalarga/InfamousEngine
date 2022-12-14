@@ -1,5 +1,7 @@
 ﻿#include "Engine.h"
 
+#include "Logger/Logger.h"
+
 namespace Inf
 {
 Engine& Engine::Self()
@@ -10,17 +12,18 @@ Engine& Engine::Self()
 
 void Engine::Init()
 {
-
+	Logger::Log("Engine initialization");
+    CreateDefaultWindow();
 }
 
 void Engine::Run()
 {
-	Init();
-
 	assert(_window);
 
 	uint32_t updateTimer = 0;
 	uint32_t frameTime = 0;
+
+	Logger::Log("Start gama loop");
 	while (!_window->IsClosing())
 	{
 		uint32_t frameBegin = SDL_GetTicks(); // TODO: Remove sdl-based code
@@ -48,6 +51,7 @@ void Engine::Run()
 
 void Engine::Destroy()
 {
+	Logger::Log("Engine destroying");
 	_window.reset();
 }
 

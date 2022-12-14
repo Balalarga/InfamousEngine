@@ -10,10 +10,11 @@ class Engine
 {
 public:
 	static Engine& Self();
-
 	~Engine() = default;
 
+	void Init();
 	void Run();
+	void Destroy();
 
 	template<class T, class ...TArgs>
 	std::enable_if_t<std::derived_from<T, GameWindow>, T*> CreateWindow(TArgs&& ...args)
@@ -22,6 +23,7 @@ public:
 		_window = std::make_unique<T>(std::forward<TArgs>(args)...);
 		return _window.get();
 	}
+	GameWindow* CreateDefaultWindow() { return CreateWindow<GameWindow>(); }
 
 	GameWindow* GetWindow() const { return _window.get(); }
 	InputManager& GetInputManager() const;
@@ -31,11 +33,9 @@ public:
 	void SetFramePerSecond(uint32_t fps);
 	void SetUpdatePerSecond(uint32_t ups);
 
+
 protected:
 	Engine() = default;
-
-	void Init();
-	void Destroy();
 
 
 private:

@@ -1,15 +1,16 @@
 #include <iostream>
 
-#include "FileSystem/FileSystem.h"
-
 #include "InfamousEngine/Engine.h"
+#include "InfamousEngine/Console/CommandArgsStorage.h"
 
 using namespace Inf;
 
-int main(int, char**)
+int main(int argc, char** argv)
 {
+    CommandArgsStorage::ParseArgValues(argc, argv);
+
     Engine& engine = Engine::Self();
-    engine.CreateWindow<GameWindow>();
+    engine.Init();
 
     engine.GetInputManager().Add(SDL_SCANCODE_ESCAPE, [](const KeyState& state)
     {
