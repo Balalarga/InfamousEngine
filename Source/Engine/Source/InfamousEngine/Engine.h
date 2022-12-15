@@ -2,6 +2,7 @@
 #include <cassert>
 #include <memory>
 
+#include "ResourceManager/ResourceManager.h"
 #include "WindowSystem/GameWindow.h"
 
 namespace Inf
@@ -23,10 +24,11 @@ public:
 		_window = std::make_unique<T>(std::forward<TArgs>(args)...);
 		return _window.get();
 	}
-	GameWindow* CreateDefaultWindow() { return CreateWindow<GameWindow>(); }
 
-	GameWindow* GetWindow() const { return _window.get(); }
+	GameWindow& GetWindow() const;
 	InputManager& GetInputManager() const;
+
+	ResourceManager& GetResourceManager() const;
 
 	void RequestClosing() const;
 
@@ -40,6 +42,7 @@ protected:
 
 private:
 	std::unique_ptr<GameWindow> _window;
+	std::unique_ptr<ResourceManager> _resourceManager;
 
 	uint32_t _fps = 60u;
 	uint32_t _ups = 30u;

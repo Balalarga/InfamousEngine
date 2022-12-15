@@ -77,4 +77,13 @@ OutputFileStream FileSystem::WriteFile(const std::string& path, FileStreamDataMo
 
 	return OutputFileStream(path, mode, autoClose);
 }
+
+std::string FileSystem::GetFileExtension(const std::string& path)
+{
+	const std::filesystem::path filepath(path);
+	std::string fullExtension = filepath.extension().generic_string();
+
+	// Remove dot from extension beginning
+	return fullExtension.empty() ? fullExtension : fullExtension.substr(1);
+}
 }

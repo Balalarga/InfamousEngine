@@ -2,4 +2,4 @@ include(BuildSystem)
 
 DefineDefaultModule(Engine)
 
-AddPublicModuleDependency(Engine Utility FileSystem OpenglWrap)
+AddPublicModuleDependency(Engine Utility FileSystem OpenglWrap ResourceManager)

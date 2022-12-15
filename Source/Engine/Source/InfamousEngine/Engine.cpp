@@ -13,7 +13,12 @@ Engine& Engine::Self()
 void Engine::Init()
 {
 	Logger::Log("Engine initialization");
-    CreateDefaultWindow();
+
+	if (!_window)
+		_window = std::make_unique<GameWindow>();
+
+	if (!_resourceManager)
+		_resourceManager = std::make_unique<ResourceManager>();
 }
 
 void Engine::Run()
@@ -55,10 +60,22 @@ void Engine::Destroy()
 	_window.reset();
 }
 
+GameWindow& Engine::GetWindow() const
+{
+	assert(_window);
+	return *_window;
+}
+
 InputManager& Engine::GetInputManager() const
 {
 	assert(_window);
 	return _window->GetInputManager();
+}
+
+ResourceManager& Engine::GetResourceManager() const
+{
+	assert(_resourceManager);
+	return *_resourceManager;
 }
 
 void Engine::RequestClosing() const
