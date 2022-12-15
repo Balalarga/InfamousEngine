@@ -3,10 +3,11 @@
 
 namespace Inf
 {
-class Resource
+class IResource
 {
 public:
-	Resource(std::string resourcePath);
+	IResource(std::string resourcePath);
+	virtual ~IResource() = default;
 
 	static size_t ComputeHash(const std::string& path);
 

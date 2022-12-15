@@ -1,4 +1,4 @@
 include(BuildSystem)
 
 DefineDefaultModule(ResourceManager)
-AddPublicModuleDependency(ResourceManager FileSystem Logger)
+AddPublicModuleDependency(ResourceManager FileSystem Logger ThirdParty)

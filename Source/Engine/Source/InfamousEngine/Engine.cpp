@@ -19,6 +19,7 @@ void Engine::Init()
 
 	if (!_resourceManager)
 		_resourceManager = std::make_unique<ResourceManager>();
+	_resourceManager->LoadDefaultResources();
 }
 
 void Engine::Run()

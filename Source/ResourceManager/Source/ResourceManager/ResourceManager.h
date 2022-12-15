@@ -1,19 +1,23 @@
 #pragma once
+#include <functional>
 #include <map>
-#include <set>
 #include <string>
 
-#include "ResourceHandler.h"
+#include "Resources/IResource.h"
+
+#include "FileSystem/FileSystem.h"
 
 
 namespace Inf
 {
-class Resource;
+using ResourceHandler = std::function<std::shared_ptr<IResource>(const std::string&)>;
 
 class ResourceManager
 {
 public:
 	ResourceManager() = default;
+	ResourceManager(ResourceManager&&) = default;
+	ResourceManager(const ResourceManager&) = default;
 	virtual ~ResourceManager() = default;
 
 	ResourceHandler* FindTypeHandler(const std::string& type);
@@ -23,14 +27,32 @@ public:
 
 	bool ResetTypeHandler(const std::string& type, ResourceHandler&& func);
 
-	std::shared_ptr<Resource> LoadResource(const std::string& filepath);
+	template<class T>
+	std::shared_ptr<T> LoadResource(const std::string& filepath)
+	{
+		if (const ResourceHandler* handler = FindTypeHandler(FileSystem::GetFileExtension(filepath)))
+		{
+			if (std::shared_ptr<T> castedResource = std::dynamic_pointer_cast<T>(FindResource(filepath)))
+				return castedResource;
 
-	std::shared_ptr<Resource> FindResource(const std::string& filepath);
-	std::shared_ptr<Resource> FindResource(size_t hash);
+			std::shared_ptr<T> resource = std::dynamic_pointer_cast<T>((*handler)(filepath));
+			if (resource)
+				_resources.insert(std::make_pair(resource->Hash(), resource));
+
+			return resource;
+		}
+
+		return nullptr;
+	}
+
+	void LoadDefaultResources();
+
+	std::shared_ptr<IResource> FindResource(const std::string& filepath);
+	std::shared_ptr<IResource> FindResource(size_t hash);
 
 protected:
 	std::map<std::string, ResourceHandler> _resourceHandlers;
-	std::map<size_t, std::shared_ptr<Resource>> _resources;
+	std::map<size_t, std::shared_ptr<IResource>> _resources;
 };
 }
 

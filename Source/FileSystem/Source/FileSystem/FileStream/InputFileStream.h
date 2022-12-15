@@ -23,6 +23,11 @@ public:
 		return *this;
 	}
 
+	std::ifstream& operator*()
+	{
+		return _stream;
+	}
+
 protected:
 	std::ifstream _stream;
 };

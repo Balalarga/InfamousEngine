@@ -1,7 +1,6 @@
 #include "ResourceManager.h"
 
-#include "Resource.h"
-#include "FileSystem/FileSystem.h"
+#include "Resources/JsonResource.h"
 
 namespace Inf
 {
@@ -41,34 +40,22 @@ bool ResourceManager::ResetTypeHandler(const std::string& type, ResourceHandler&
 	return false;
 }
 
-std::shared_ptr<Resource> ResourceManager::LoadResource(const std::string& filepath)
+std::shared_ptr<IResource> ResourceManager::FindResource(const std::string& filepath)
 {
-	if (const ResourceHandler* handler = FindTypeHandler(FileSystem::GetFileExtension(filepath)))
-	{
-		if (std::shared_ptr<Resource> foundedResource = FindResource(filepath))
-			return foundedResource;
-
-		std::shared_ptr<Resource> resource = (*handler)(filepath);
-		if (resource)
-			_resources.insert(std::make_pair(resource->Hash(), resource));
-
-		return resource;
-	}
-
-	return nullptr;
+	return FindResource(IResource::ComputeHash(filepath));
 }
 
-std::shared_ptr<Resource> ResourceManager::FindResource(const std::string& filepath)
-{
-	return FindResource(Resource::ComputeHash(filepath));
-}
-
-std::shared_ptr<Resource> ResourceManager::FindResource(size_t hash)
+std::shared_ptr<IResource> ResourceManager::FindResource(size_t hash)
 {
 	const auto it = _resources.find(hash);
 	if (it != _resources.end())
 		return it->second;
 
 	return nullptr;
+}
+
+void ResourceManager::LoadDefaultResources()
+{
+	AddTypeHandler("json", &JsonResource::ResourceHandler);
 }
 }
