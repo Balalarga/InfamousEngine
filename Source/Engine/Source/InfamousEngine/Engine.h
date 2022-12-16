@@ -31,6 +31,8 @@ public:
 	static void SetResourceDir(const std::string& resourceDir);
 	static const std::string& GetResourceDir();
 
+	void AddResourceHandlers();
+
 	void Init();
 	void Run();
 	void Destroy();

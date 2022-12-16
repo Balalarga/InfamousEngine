@@ -52,8 +52,6 @@ public:
 		return nullptr;
 	}
 
-	void LoadDefaultResources();
-
 	std::shared_ptr<IResource> FindResource(const std::string& filepath);
 	std::shared_ptr<IResource> FindResource(size_t hash);
 

@@ -4,6 +4,9 @@
 #include "InfamousEngine/Console/CommandArgsStorage.h"
 
 #include "Logger/Logger.h"
+
+#include "OpenglWrap/Shaders/ShaderResource.h"
+
 #include "ResourceManager/Resources/JsonResource.h"
 
 using namespace Inf;
@@ -17,9 +20,12 @@ int main(int argc, char** argv)
     engine.Init();
 
     ResourceManager& resourceManager = engine.GetResourceManager();
-    const std::shared_ptr resources = resourceManager.LoadResource<JsonResource>("resources.json");
+    const std::shared_ptr resources = resourceManager.LoadResource<ShaderResource>("Shaders/default.vsh");
     if (!resources)
-        Logger::Error("Couldn't load resource.json");
+        Logger::Error("Couldn't load shader");
+
+    if (!(**resources).Compile())
+        Logger::Error("Couldn't compile shader");
 
     engine.GetInputManager().Add(SDL_SCANCODE_ESCAPE, [](const KeyState& state)
     {

@@ -8,25 +8,29 @@ namespace Inf
 {
 const std::map<std::string, ShaderType> ShaderResource::sShaderExtensions =
 {
-	{".vert", ShaderType::Vertex},
-	{".frag", ShaderType::Fragment},
-	{".geom", ShaderType::Geometry},
-	{".pix", ShaderType::Pixel},
-	{".tess", ShaderType::Tesselation},
-	{".comp", ShaderType::Compute},
+	{"vsh", ShaderType::Vertex},
+	{"fsh", ShaderType::Fragment},
+	{"gsh", ShaderType::Geometry},
+	{"csh", ShaderType::Compute},
 };
 
 std::shared_ptr<ShaderResource> ShaderResource::ResourceHandler(const std::string& path)
 {
 	const std::string type = FileSystem::GetFileExtension(path);
-	if (!sShaderExtensions.contains(type))
+	const auto typeKV = sShaderExtensions.find(type);
+	if (typeKV == sShaderExtensions.end())
 		return nullptr;
 
-	return nullptr;
+	std::optional<std::string> code = FileSystem::ReadAllFile(path);
+	if (!code.has_value())
+		return nullptr;
+
+	return std::make_shared<ShaderResource>(path, typeKV->second, code.value());
 }
 
-ShaderResource::ShaderResource(std::string resourcePath):
-	IResource(std::move(resourcePath))
+ShaderResource::ShaderResource(std::string resourcePath, ShaderType type, std::string code):
+	IResource(std::move(resourcePath)),
+	_shader(type, code)
 {
 }
 }

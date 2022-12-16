@@ -1,44 +1,35 @@
 ﻿#pragma once
-#include <map>
-#include <memory>
 #include <string>
 
-#include "Uniform.h"
-
+#include "ShaderType.h"
 
 namespace Inf
 {
-class ShaderPart;
 
 class Shader
 {
 public:
-	Shader(std::shared_ptr<ShaderPart> vShader,
-		   std::shared_ptr<ShaderPart> fShader,
-		   std::shared_ptr<ShaderPart> gShader = nullptr);
-	~Shader();
-
+	Shader(ShaderType type, std::string code);
+	virtual ~Shader();
+	
+	bool IsCompiled() const { return _glHandler != 0; }
+	
 	bool Compile();
 	void Destroy();
-
-	void Bind() const;
-	static void Release();
-
-	void SetUniform(const std::string& name, const UniformValue& value, bool bUnbind = false);
 	
+	const ShaderType& GetType() const { return _type; }
+	const std::string& GetCode() const { return _code; }
+	const unsigned& GetHandler() const { return _glHandler; }
+
+
 protected:
-	int GetUniformLocation(const std::string& name);
+	bool HasError() const;
+
 
 private:
-	struct
-	{
-		std::shared_ptr<ShaderPart> vShader;
-		std::shared_ptr<ShaderPart> fShader;
-		std::shared_ptr<ShaderPart> gShader;
-	} _parts;
-
+	const ShaderType _type;
+	const std::string _code;
+	
 	unsigned _glHandler = 0;
-
-	std::map<std::string, int> _uniformCache;
 };
 }

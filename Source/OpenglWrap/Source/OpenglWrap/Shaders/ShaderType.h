@@ -1,14 +1,14 @@
 #pragma once
 
+#include <GL/glew.h>
+
 namespace Inf
 {
-enum class ShaderType
+enum class ShaderType: int
 {
-	Vertex,
-	Fragment,
-	Geometry,
-	Pixel,
-	Tesselation,
-	Compute
+	Vertex = GL_VERTEX_SHADER,
+	Fragment = GL_FRAGMENT_SHADER,
+	Geometry = GL_GEOMETRY_SHADER,
+	Compute = GL_COMPUTE_SHADER
 };
 }

@@ -59,9 +59,4 @@ std::shared_ptr<IResource> ResourceManager::FindResource(size_t hash)
 
 	return nullptr;
 }
-
-void ResourceManager::LoadDefaultResources()
-{
-	AddTypeHandler("json", &JsonResource::ResourceHandler);
-}
 }

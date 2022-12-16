@@ -2,6 +2,10 @@
 
 #include "Logger/Logger.h"
 
+#include "OpenglWrap/Shaders/ShaderResource.h"
+
+#include "ResourceManager/Resources/JsonResource.h"
+
 namespace Inf
 {
 std::string Engine::sResourcesDir = "Assets";
@@ -21,7 +25,7 @@ void Engine::Init()
 
 	if (!_resourceManager)
 		_resourceManager = std::make_unique<ResourceManager>(sResourcesDir);
-	_resourceManager->LoadDefaultResources();
+	AddResourceHandlers();
 }
 
 void Engine::Run()
@@ -72,6 +76,13 @@ void Engine::SetResourceDir(const std::string& resourceDir)
 const std::string& Engine::GetResourceDir()
 {
 	return sResourcesDir;
+}
+
+void Engine::AddResourceHandlers()
+{
+	_resourceManager->AddTypeHandler("json", &JsonResource::ResourceHandler);
+	for (auto& [ext, type]: ShaderResource::sShaderExtensions)
+		_resourceManager->AddTypeHandler(ext, &ShaderResource::ResourceHandler);
 }
 
 GameWindow& Engine::GetWindow() const
