@@ -8,22 +8,22 @@ namespace Inf
 {
 std::shared_ptr<JsonResource> JsonResource::ResourceHandler(const std::string& path)
 {
-	if (InputFileStream stream = FileSystem::ReadFile(path))
+	std::optional<std::string> data = FileSystem::ReadAllFile(path);
+	if (data.has_value())
 	{
-		char buffer[65536];
-		rapidjson::IStreamWrapper is(*stream, buffer, sizeof buffer);
+		auto json = std::make_shared<JsonResource>(path);
 
-		doc.Parse(data.value().c_str());
-
-		return doc.IsObject() ? std::make_shared<JsonResource>(path, doc) : nullptr;
+		json->_json.Parse(data.value().c_str());
+		if (json->_json.IsObject())
+			return json;
+		return nullptr;
 	}
 
 	return nullptr;
 }
 
-JsonResource::JsonResource(std::string resourcePath, rapidjson::Document& json):
+JsonResource::JsonResource(std::string resourcePath):
 	IResource(std::move(resourcePath))
 {
-	_json.CopyFrom(json, json.GetAllocator());
 }
 }

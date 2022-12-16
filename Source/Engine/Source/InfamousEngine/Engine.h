@@ -13,10 +13,6 @@ public:
 	static Engine& Self();
 	~Engine() = default;
 
-	void Init();
-	void Run();
-	void Destroy();
-
 	template<class T, class ...TArgs>
 	std::enable_if_t<std::derived_from<T, GameWindow>, T*> CreateWindow(TArgs&& ...args)
 	{
@@ -24,6 +20,20 @@ public:
 		_window = std::make_unique<T>(std::forward<TArgs>(args)...);
 		return _window.get();
 	}
+
+	template<class T, class ...TArgs>
+	std::enable_if_t<std::derived_from<T, ResourceManager>, T*> CreateResourceManager(TArgs&& ...args)
+	{
+		assert(!_resourceManager);
+		_resourceManager = std::make_unique<T>(std::forward<TArgs>(args)...);
+		return _resourceManager.get();
+	}
+	static void SetResourceDir(const std::string& resourceDir);
+	static const std::string& GetResourceDir();
+
+	void Init();
+	void Run();
+	void Destroy();
 
 	GameWindow& GetWindow() const;
 	InputManager& GetInputManager() const;
@@ -41,6 +51,8 @@ protected:
 
 
 private:
+	static std::string sResourcesDir;
+
 	std::unique_ptr<GameWindow> _window;
 	std::unique_ptr<ResourceManager> _resourceManager;
 
@@ -49,5 +61,7 @@ private:
 
 	uint32_t _fpsMs = 1000u / _fps;
 	uint32_t _upsMs = 1000u / _ups;
+
+	uint32_t _frameTime = 0;
 };
 }

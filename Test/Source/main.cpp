@@ -1,5 +1,9 @@
+#include <filesystem>
+
 #include "InfamousEngine/Engine.h"
 #include "InfamousEngine/Console/CommandArgsStorage.h"
+
+#include "Logger/Logger.h"
 #include "ResourceManager/Resources/JsonResource.h"
 
 using namespace Inf;
@@ -7,19 +11,21 @@ using namespace Inf;
 int main(int argc, char** argv)
 {
     CommandArgsStorage::ParseArgValues(argc, argv);
+    Engine::SetResourceDir(RESOURCES_DIR);
 
     Engine& engine = Engine::Self();
     engine.Init();
 
     ResourceManager& resourceManager = engine.GetResourceManager();
-    resourceManager.LoadResource<JsonResource>(R"(C:\UnrealEngines\R3-4.26.2-source\Engine\Programs\UnrealInsights\Saved\R3PerfResults.json)");
+    const std::shared_ptr resources = resourceManager.LoadResource<JsonResource>("resources.json");
+    if (!resources)
+        Logger::Error("Couldn't load resource.json");
 
     engine.GetInputManager().Add(SDL_SCANCODE_ESCAPE, [](const KeyState& state)
     {
         if (state == KeyState::Pressed)
             Engine::Self().RequestClosing();
     });
-
 
     engine.Run();
 

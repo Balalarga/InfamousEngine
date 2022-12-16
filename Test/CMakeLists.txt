@@ -21,14 +21,15 @@ file(GLOB_RECURSE RESOURCE_FILES ${RESOURCES_DIR}/*)
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE "PROJECT_SOURCE_DIR=\"${CMAKE_SOURCE_DIR}\"")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "RESOURCES_DIR=\"${RESOURCES_DIR}\"")
+# wtf?
 set_target_properties(${PROJECT_NAME} PROPERTIES RESOURCE "${RESOURCE_FILES}")
 
 target_include_directories(${PROJECT_NAME} PRIVATE Source)
 target_link_libraries (${PROJECT_NAME} LINK_PUBLIC InfamousEngine)
 target_include_directories(${PROJECT_NAME} PUBLIC InfamousEngine)
 
+# Important
 foreach(Binary ${UNKNOWN_ENGINE_THIRDPARTY_DLLS})
     message("Copy files from ${Binary} -> ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

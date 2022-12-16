@@ -15,7 +15,7 @@ using ResourceHandler = std::function<std::shared_ptr<IResource>(const std::stri
 class ResourceManager
 {
 public:
-	ResourceManager() = default;
+	ResourceManager(const std::string& resourceDir);
 	ResourceManager(ResourceManager&&) = default;
 	ResourceManager(const ResourceManager&) = default;
 	virtual ~ResourceManager() = default;
@@ -28,18 +28,25 @@ public:
 	bool ResetTypeHandler(const std::string& type, ResourceHandler&& func);
 
 	template<class T>
-	std::shared_ptr<T> LoadResource(const std::string& filepath)
+	std::enable_if_t<std::derived_from<T, IResource>, std::shared_ptr<T>>
+	LoadResource(const std::string& filepath, bool bAbsoluteResource = false)
 	{
 		if (const ResourceHandler* handler = FindTypeHandler(FileSystem::GetFileExtension(filepath)))
 		{
-			if (std::shared_ptr<T> castedResource = std::dynamic_pointer_cast<T>(FindResource(filepath)))
+			const std::shared_ptr<T> castedResource = std::dynamic_pointer_cast<T>(FindResource(filepath));
+			if (castedResource)
 				return castedResource;
 
-			std::shared_ptr<T> resource = std::dynamic_pointer_cast<T>((*handler)(filepath));
-			if (resource)
+			const std::string path = bAbsoluteResource ? filepath : FileSystem::JoinPaths(_baseDir, filepath);
+			std::shared_ptr<IResource> resource = (*handler)(path);
+			if (!resource)
+				return nullptr;
+
+			const std::shared_ptr<T> requestedResource = std::dynamic_pointer_cast<T>(resource);
+			if (requestedResource)
 				_resources.insert(std::make_pair(resource->Hash(), resource));
 
-			return resource;
+			return requestedResource;
 		}
 
 		return nullptr;
@@ -51,6 +58,8 @@ public:
 	std::shared_ptr<IResource> FindResource(size_t hash);
 
 protected:
+	const std::string _baseDir;
+
 	std::map<std::string, ResourceHandler> _resourceHandlers;
 	std::map<size_t, std::shared_ptr<IResource>> _resources;
 };

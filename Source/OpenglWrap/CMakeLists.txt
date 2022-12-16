@@ -1,4 +1,4 @@
 include(BuildSystem)
 
 DefineDefaultModule(OpenglWrap)
-AddPublicModuleDependency(OpenglWrap Utility Logger WindowSystem ThirdParty)
+AddPublicModuleDependency(OpenglWrap Utility Logger WindowSystem ThirdParty ResourceManager)

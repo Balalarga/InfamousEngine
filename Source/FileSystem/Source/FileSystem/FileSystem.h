@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <optional>
 #include <string>
+#include <vector>
 
 #include "FileStream/InputFileStream.h"
 #include "FileStream/OutputFileStream.h"
@@ -25,5 +26,8 @@ public:
 	static OutputFileStream WriteFile(const std::string& path, FileStreamDataMode mode, bool autoClose = true, bool bCreateSubDirectories = true);
 
 	static std::string GetFileExtension(const std::string& path);
+
+	static std::string JoinPaths(const std::string&  p1, const std::string&  p2);
+	static std::string JoinPaths(const std::vector<std::string> paths);
 };
 }

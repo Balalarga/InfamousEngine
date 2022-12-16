@@ -70,6 +70,15 @@ GameWindow::~GameWindow()
 	}
 }
 
+void GameWindow::Open()
+{
+	if (!_bIsClosed)
+		return;
+
+	_bIsClosed = false;
+	SDL_ShowWindow(_sdlWindow);
+}
+
 void GameWindow::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

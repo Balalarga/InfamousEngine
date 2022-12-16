@@ -17,7 +17,7 @@ public:
 		SDL_Point Size = {1280, 720};
 		SDL_Point Pos = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};
 		bool IsFullScreen = false;
-		SDL_WindowFlags Flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+		SDL_WindowFlags Flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_HIDDEN);
 
 		const char* imguiGlVersion = "#version 450";
 	};
@@ -27,8 +27,9 @@ public:
 
 	InputManager& GetInputManager() { return _inputManager; }
 
-	bool IsClosing() const { return _bIsClosing; }
-	void Close() { _bIsClosing = true; }
+	void Open();
+	bool IsClosed() const { return _bIsClosed; }
+	void Close() { _bIsClosed = true; }
 
 	virtual void Render();
 
@@ -43,6 +44,6 @@ protected:
 	SDL_GLContext _openglContext;
 
 
-	bool _bIsClosing = false;
+	bool _bIsClosed = true;
 };
 }

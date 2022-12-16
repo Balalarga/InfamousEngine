@@ -4,6 +4,8 @@
 
 namespace Inf
 {
+std::string Engine::sResourcesDir = "Assets";
+
 Engine& Engine::Self()
 {
 	static Engine sEngine;
@@ -12,13 +14,13 @@ Engine& Engine::Self()
 
 void Engine::Init()
 {
-	Logger::Log("Engine initialization");
+	Logger::Verbose("Engine initialization");
 
 	if (!_window)
 		_window = std::make_unique<GameWindow>();
 
 	if (!_resourceManager)
-		_resourceManager = std::make_unique<ResourceManager>();
+		_resourceManager = std::make_unique<ResourceManager>(sResourcesDir);
 	_resourceManager->LoadDefaultResources();
 }
 
@@ -27,12 +29,12 @@ void Engine::Run()
 	assert(_window);
 
 	uint32_t updateTimer = 0;
-	uint32_t frameTime = 0;
 
-	Logger::Log("Start gama loop");
-	while (!_window->IsClosing())
+	Logger::Verbose("Start game loop");
+	_window->Open();
+	while (!_window->IsClosed())
 	{
-		uint32_t frameBegin = SDL_GetTicks(); // TODO: Remove sdl-based code
+		const uint32_t frameBegin = SDL_GetTicks(); // TODO: Remove sdl-based code
 		_window->GetInputManager().HandleEvent();
 
 		if (updateTimer >= _upsMs)
@@ -43,13 +45,13 @@ void Engine::Run()
 
 		_window->Render();
 
-		frameTime = SDL_GetTicks() - frameBegin;
-		if (frameTime < _fpsMs)
+		_frameTime = SDL_GetTicks() - frameBegin;
+		if (_frameTime < _fpsMs)
 		{
-			SDL_Delay(_fpsMs - frameTime);
-			frameTime = SDL_GetTicks() - frameBegin;
+			SDL_Delay(_fpsMs - _frameTime);
+			_frameTime = SDL_GetTicks() - frameBegin;
 		}
-		updateTimer += frameTime;
+		updateTimer += _frameTime;
 	}
 
 	Destroy();
@@ -57,8 +59,19 @@ void Engine::Run()
 
 void Engine::Destroy()
 {
-	Logger::Log("Engine destroying");
+	Logger::Verbose("Engine destroying");
 	_window.reset();
+}
+
+void Engine::SetResourceDir(const std::string& resourceDir)
+{
+	Logger::Verbose(fmt::format("Set resource dir {}", resourceDir));
+	sResourcesDir = resourceDir;
+}
+
+const std::string& Engine::GetResourceDir()
+{
+	return sResourcesDir;
 }
 
 GameWindow& Engine::GetWindow() const
@@ -81,7 +94,7 @@ ResourceManager& Engine::GetResourceManager() const
 
 void Engine::RequestClosing() const
 {
-	if (_window && !_window->IsClosing())
+	if (_window && !_window->IsClosed())
 		_window->Close();
 }
 

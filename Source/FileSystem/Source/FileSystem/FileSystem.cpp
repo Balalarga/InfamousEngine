@@ -86,4 +86,20 @@ std::string FileSystem::GetFileExtension(const std::string& path)
 	// Remove dot from extension beginning
 	return fullExtension.empty() ? fullExtension : fullExtension.substr(1);
 }
+
+std::string FileSystem::JoinPaths(const std::string& p1, const std::string& p2)
+{
+	return (std::filesystem::path(p1)/std::filesystem::path(p2)).generic_string();
+}
+
+std::string FileSystem::JoinPaths(const std::vector<std::string> paths)
+{
+	if (paths.empty())
+		return "";
+
+	std::filesystem::path resPath(paths[0]);
+	for (const std::string& path : paths)
+		resPath /= path;
+	return resPath.generic_string();
+}
 }

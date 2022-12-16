@@ -4,6 +4,12 @@
 
 namespace Inf
 {
+ResourceManager::ResourceManager(const std::string& resourceDir):
+	_baseDir(resourceDir)
+{
+
+}
+
 ResourceHandler* ResourceManager::FindTypeHandler(const std::string& type)
 {
 	const auto it = _resourceHandlers.find(type);
