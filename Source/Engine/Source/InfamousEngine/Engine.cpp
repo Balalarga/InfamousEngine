@@ -2,14 +2,10 @@
 
 #include "Logger/Logger.h"
 
-#include "OpenglWrap/Shaders/ShaderResource.h"
-
-#include "ResourceManager/Resources/JsonResource.h"
+#include "ResourceManager/ResourceManager.h"
 
 namespace Inf
 {
-std::string Engine::sResourcesDir = "Assets";
-
 Engine& Engine::Self()
 {
 	static Engine sEngine;
@@ -23,9 +19,6 @@ void Engine::Init()
 	if (!_window)
 		_window = std::make_unique<GameWindow>();
 
-	if (!_resourceManager)
-		_resourceManager = std::make_unique<ResourceManager>(sResourcesDir);
-	AddResourceHandlers();
 }
 
 void Engine::Run()
@@ -67,24 +60,6 @@ void Engine::Destroy()
 	_window.reset();
 }
 
-void Engine::SetResourceDir(const std::string& resourceDir)
-{
-	Logger::Verbose(fmt::format("Set resource dir {}", resourceDir));
-	sResourcesDir = resourceDir;
-}
-
-const std::string& Engine::GetResourceDir()
-{
-	return sResourcesDir;
-}
-
-void Engine::AddResourceHandlers()
-{
-	_resourceManager->AddTypeHandler("json", &JsonResource::ResourceHandler);
-	for (auto& [ext, type]: ShaderResource::sShaderExtensions)
-		_resourceManager->AddTypeHandler(ext, &ShaderResource::ResourceHandler);
-}
-
 GameWindow& Engine::GetWindow() const
 {
 	assert(_window);
@@ -95,12 +70,6 @@ InputManager& Engine::GetInputManager() const
 {
 	assert(_window);
 	return _window->GetInputManager();
-}
-
-ResourceManager& Engine::GetResourceManager() const
-{
-	assert(_resourceManager);
-	return *_resourceManager;
 }
 
 void Engine::RequestClosing() const

@@ -3,6 +3,8 @@
 
 #include "ShaderType.h"
 
+#include "ResourceManager/ResourceManager.h"
+
 namespace Inf
 {
 

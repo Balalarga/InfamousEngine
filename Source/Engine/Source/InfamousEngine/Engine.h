@@ -2,7 +2,6 @@
 #include <cassert>
 #include <memory>
 
-#include "ResourceManager/ResourceManager.h"
 #include "WindowSystem/GameWindow.h"
 
 namespace Inf
@@ -21,26 +20,12 @@ public:
 		return _window.get();
 	}
 
-	template<class T, class ...TArgs>
-	std::enable_if_t<std::derived_from<T, ResourceManager>, T*> CreateResourceManager(TArgs&& ...args)
-	{
-		assert(!_resourceManager);
-		_resourceManager = std::make_unique<T>(std::forward<TArgs>(args)...);
-		return _resourceManager.get();
-	}
-	static void SetResourceDir(const std::string& resourceDir);
-	static const std::string& GetResourceDir();
-
-	void AddResourceHandlers();
-
 	void Init();
 	void Run();
 	void Destroy();
 
 	GameWindow& GetWindow() const;
 	InputManager& GetInputManager() const;
-
-	ResourceManager& GetResourceManager() const;
 
 	void RequestClosing() const;
 
@@ -53,10 +38,7 @@ protected:
 
 
 private:
-	static std::string sResourcesDir;
-
 	std::unique_ptr<GameWindow> _window;
-	std::unique_ptr<ResourceManager> _resourceManager;
 
 	uint32_t _fps = 60u;
 	uint32_t _ups = 30u;
