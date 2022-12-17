@@ -8,6 +8,12 @@ namespace Inf
 class IResource
 {
 public:
+	struct FileInfo
+	{
+		std::string path;
+		std::string extension;
+	};
+
 	IResource(std::string resourcePath);
 	virtual ~IResource() = default;
 
@@ -15,18 +21,14 @@ public:
 
 	size_t Hash() const { return _hash; }
 
+	static std::shared_ptr<IResource> LoadFrom(const FileInfo& info)
+	{
+		assert(false);
+		return nullptr;
+	}
+
 private:
 	const std::string _resourcePath;
 	const size_t _hash;
 };
-
-namespace ResourceHandler
-{
-template<class T>
-std::shared_ptr<T> LoadFrom(const std::string& path, const std::string& extension)
-{
-	assert(false);
-	return nullptr;
-}
-}
 }

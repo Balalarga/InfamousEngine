@@ -10,6 +10,9 @@ void ILogOutputDevice::SetMinLogLevel(LogLevel level)
 
 void CmdOutput::Write(const LogLevel& level, std::string &&text)
 {
-    std::cout << text << std::endl;
+    if (level == LogLevel::Error)
+        std::cerr << text << std::endl;
+    else
+        std::cout << text << std::endl;
 }
 }

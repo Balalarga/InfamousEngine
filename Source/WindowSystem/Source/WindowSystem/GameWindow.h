@@ -34,6 +34,8 @@ public:
 	virtual void Render();
 
 	uint32_t GetWindowId() const;
+	void Resize(unsigned x, unsigned y);
+	SDL_Point GetSize() const;
 
 
 protected:

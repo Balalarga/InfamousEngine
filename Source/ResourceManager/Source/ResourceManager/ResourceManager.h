@@ -20,7 +20,7 @@ public:
 	LoadResource(const std::string& filepath, bool bAbsoluteResource = false)
 	{
 		std::string path = bAbsoluteResource ? filepath : FileSystem::JoinPaths(_baseDir, filepath);
-		std::shared_ptr<T> res = ResourceHandler::LoadFrom<T>(path, FileSystem::GetFileExtension(filepath));
+		std::shared_ptr<T> res = T::LoadFrom({path, FileSystem::GetFileExtension(filepath)});
 		if (res)
 			_resources.insert(std::make_pair(GetHash(filepath), res));
 		return res;

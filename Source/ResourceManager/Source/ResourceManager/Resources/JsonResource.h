@@ -14,22 +14,9 @@ public:
 
 	rapidjson::Document& GetJson() { return _json; }
 
+	static std::shared_ptr<JsonResource> LoadFrom(const FileInfo& info);
+
 private:
 	rapidjson::Document _json;
 };
-
-template<>
-inline std::shared_ptr<JsonResource> ResourceHandler::LoadFrom(const std::string& path, const std::string& extension)
-{
-	std::optional<std::string> data = FileSystem::ReadAllFile(path);
-	if (data.has_value())
-	{
-		auto json = std::make_shared<JsonResource>(path, data.value());
-		if (!json->GetJson().IsObject())
-			return nullptr;
-		return json;
-	}
-
-	return nullptr;
-}
 }

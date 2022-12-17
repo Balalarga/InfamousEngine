@@ -4,7 +4,7 @@
 
 namespace Inf
 {
-enum class ShaderType: int
+enum class ShaderType: uint32_t
 {
 	Vertex = GL_VERTEX_SHADER,
 	Fragment = GL_FRAGMENT_SHADER,
