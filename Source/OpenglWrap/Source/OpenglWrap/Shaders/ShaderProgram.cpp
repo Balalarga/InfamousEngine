@@ -31,7 +31,7 @@ bool ShaderProgram::Compile()
 	std::vector<unsigned> attachedShaders;
 	for (const std::shared_ptr<Shader>& part : parts)
 	{
-		if (!part->IsCompiled() && !part->Compile())
+		if (!part || !part->IsCompiled() && !part->Compile())
 			continue;
 
 		attachedShaders.push_back(part->GetHandler());

@@ -70,6 +70,11 @@ GameWindow::~GameWindow()
 	}
 }
 
+InputManager* GameWindow::GetInputManager()
+{
+	return &_inputManager;
+}
+
 void GameWindow::Open()
 {
 	if (!_bIsClosed)
@@ -96,6 +101,11 @@ void GameWindow::Render()
 	SDL_GL_SwapWindow(_sdlWindow);
 }
 
+void GameWindow::HandleEvents()
+{
+	_inputManager.HandleEvent();
+}
+
 uint32_t GameWindow::GetWindowId() const
 {
 	return SDL_GetWindowID(_sdlWindow);
@@ -106,9 +116,9 @@ void GameWindow::Resize(unsigned x, unsigned y)
 	SDL_SetWindowSize(_sdlWindow, static_cast<int>(x), static_cast<int>(y));
 }
 
-SDL_Point GameWindow::GetSize() const
+glm::uvec2 GameWindow::GetSize() const
 {
-	SDL_Point size;
+	glm::ivec2 size;
 	SDL_GetWindowSize(_sdlWindow, &size.x, &size.y);
 	return size;
 }

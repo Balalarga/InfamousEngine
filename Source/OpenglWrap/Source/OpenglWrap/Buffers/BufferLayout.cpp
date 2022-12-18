@@ -3,21 +3,24 @@
 
 namespace Inf
 {
-BufferLayout& BufferLayout::Float(unsigned count)
+BufferLayout& BufferLayout::Float(int count)
 {
-	Variables.push_back({GL_FLOAT, count, sizeof(GLfloat)}); Size += count * sizeof(GLfloat);
+	Variables.push_back({GL_FLOAT, count, sizeof(GLfloat)});
+	Size += count * static_cast<int>(sizeof(GLfloat));
 	return *this;
 }
 
-BufferLayout& BufferLayout::Int(unsigned count)
+BufferLayout& BufferLayout::Int(int count)
 {
-	Variables.push_back({GL_INT, count, sizeof(GLint)}); Size += count * sizeof(GLint);
+	Variables.push_back({GL_INT, count, sizeof(GLint)});
+	Size += count * static_cast<int>(sizeof(GLint));
 	return *this;
 }
 
-BufferLayout& BufferLayout::Unsigned(unsigned count)
+BufferLayout& BufferLayout::Unsigned(int count)
 {
-	Variables.push_back({GL_UNSIGNED_INT, count, sizeof(GLuint)}); Size += count * sizeof(GLuint);
+	Variables.push_back({GL_UNSIGNED_INT, count, sizeof(GLuint)});
+	Size += count * static_cast<int>(sizeof(GLuint));
 	return *this;
 }
 }

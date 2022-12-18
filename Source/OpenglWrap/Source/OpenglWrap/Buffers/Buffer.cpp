@@ -3,33 +3,29 @@
 
 namespace Inf
 {
-DataPtr::DataPtr():
-    Ptr(nullptr),
-    Count(0),
-    ItemSize(0)
-{
-    
-}
-
-DataPtr::DataPtr(void* ptr, unsigned count, unsigned itemSize):
-    Ptr(ptr),
-    Count(count),
-    ItemSize(itemSize)
-{
-
-}
-unsigned DrawType = GL_TRIANGLES;
-unsigned Type = GL_ARRAY_BUFFER;
-unsigned Mode = GL_STATIC_DRAW;
-
-Buffer::Buffer(const DataPtr& data, const BufferLayout& layout):
+Buffer::Buffer(const DataPtr& data, BufferLayout layout):
     Data(data),
-    Layout(layout),
-    DrawType(GL_TRIANGLES),
-    Type(GL_ARRAY_BUFFER),
-    Mode(GL_STATIC_DRAW)
+    Layout(std::move(layout))
 {
 
+}
+
+Buffer& Buffer::SetDrawType(int type)
+{
+    DrawType = type;
+    return *this;
+}
+
+Buffer& Buffer::SetType(int type)
+{
+    Type = type;
+    return *this;
+}
+
+Buffer& Buffer::SetMode(int type)
+{
+    Mode = type;
+    return *this;
 }
 
 unsigned Buffer::Create()
@@ -42,8 +38,8 @@ unsigned Buffer::Create()
     glBindBuffer(Type, handler);
     glBufferData(Type, Data.Count * Data.ItemSize, Data.Ptr, Mode);
 
-    unsigned offset = 0;
-    for (int i = 0; i < Layout.Variables.size(); ++i)
+    int64_t offset = 0;
+    for (unsigned i = 0; i < Layout.Variables.size(); ++i)
     {
         glEnableVertexAttribArray(i);
         glVertexAttribPointer(i,

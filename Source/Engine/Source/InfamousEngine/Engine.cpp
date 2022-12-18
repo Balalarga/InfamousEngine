@@ -3,6 +3,8 @@
 #include "Logger/Logger.h"
 
 #include "ResourceManager/ResourceManager.h"
+#include "WindowSystem/Input/InputManager.h"
+#include "WindowSystem/Windows/GameWindow.h"
 
 namespace Inf
 {
@@ -18,7 +20,6 @@ void Engine::Init()
 
 	if (!_window)
 		_window = std::make_unique<GameWindow>();
-
 }
 
 void Engine::Run()
@@ -32,7 +33,7 @@ void Engine::Run()
 	while (!_window->IsClosed())
 	{
 		const uint32_t frameBegin = SDL_GetTicks(); // TODO: Remove sdl-based code
-		_window->GetInputManager().HandleEvent();
+		_window->HandleEvents();
 
 		if (updateTimer >= _upsMs)
 		{
@@ -60,16 +61,10 @@ void Engine::Destroy()
 	_window.reset();
 }
 
-GameWindow& Engine::GetWindow() const
+IWindow& Engine::GetWindow() const
 {
 	assert(_window);
 	return *_window;
-}
-
-InputManager& Engine::GetInputManager() const
-{
-	assert(_window);
-	return _window->GetInputManager();
 }
 
 void Engine::RequestClosing() const

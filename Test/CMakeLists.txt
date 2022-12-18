@@ -19,7 +19,7 @@ file(GLOB_RECURSE PROJECT_SOURCES
 # Find all resources
 file(GLOB_RECURSE RESOURCE_FILES ${RESOURCES_DIR}/*)
 
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${RESOURCE_FILES})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE "RESOURCES_DIR=\"${RESOURCES_DIR}\"")
 # wtf?

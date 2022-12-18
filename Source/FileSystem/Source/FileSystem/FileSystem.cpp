@@ -87,6 +87,11 @@ std::string FileSystem::GetFileExtension(const std::string& path)
 	return fullExtension.empty() ? fullExtension : fullExtension.substr(1);
 }
 
+std::string FileSystem::GetFileName(const std::string& path)
+{
+	return std::filesystem::path(path).filename().generic_string();
+}
+
 std::string FileSystem::JoinPaths(const std::string& p1, const std::string& p2)
 {
 	return (std::filesystem::path(p1)/std::filesystem::path(p2)).generic_string();

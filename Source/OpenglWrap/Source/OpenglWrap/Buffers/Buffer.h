@@ -1,37 +1,27 @@
 #pragma once
 
+#include <GL/glew.h>
+
 #include "BufferLayout.h"
+#include "DataPtr.h"
 
 namespace Inf
 {
-struct DataPtr
-{
-    DataPtr();
-    DataPtr(void* ptr, unsigned count, unsigned itemSize);
-    
-    template<class T>
-    DataPtr(const std::vector<T>& items):
-        DataPtr((void*)&items[0], items.size(), sizeof(T))
-    {}
-    template<class T>
-    DataPtr(const std::initializer_list<T>& items):
-        DataPtr((void*)&items[0], items.size(), sizeof(T))
-    {}
-
-    void* Ptr;
-    unsigned Count;
-    unsigned ItemSize;
-};
-
 struct Buffer
 {
-    Buffer(const DataPtr& data = {}, const BufferLayout& layout = BufferLayout());
+    Buffer() = default;
+    Buffer(const DataPtr& data, BufferLayout layout);
 
     DataPtr Data;
     BufferLayout Layout;
-    unsigned DrawType;
-    unsigned Type;
-    unsigned Mode;
+
+    Buffer& SetDrawType(int type);
+    Buffer& SetType(int type);
+    Buffer& SetMode(int type);
+
+    int DrawType = GL_TRIANGLES;
+    int Type = GL_ARRAY_BUFFER;
+    int Mode = GL_STATIC_DRAW;
 
     unsigned Create();
 };

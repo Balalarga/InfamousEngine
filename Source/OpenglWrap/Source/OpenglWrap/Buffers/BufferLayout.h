@@ -8,17 +8,17 @@ class BufferLayout
 public:
 	struct VariableInfo
 	{
-		unsigned Type;
-		unsigned Count;
-		unsigned Size;
+		int Type;
+		int Count;
+		int64_t Size;
 		bool Normalized = true;
 	};
 	
-	BufferLayout& Float(unsigned count);
-	BufferLayout& Int(unsigned count);
-	BufferLayout& Unsigned(unsigned count);
+	BufferLayout& Float(int count);
+	BufferLayout& Int(int count);
+	BufferLayout& Unsigned(int count);
     
 	std::vector<VariableInfo> Variables;
-	unsigned Size = 0;	
+	int Size = 0;
 };
 }

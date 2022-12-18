@@ -3,11 +3,12 @@
 #include <SDL.h>
 #include <string>
 
-#include "Input/InputManager.h"
+#include "WindowSystem/Input/InputManager.h"
+#include "IWindow.h"
 
 namespace Inf
 {
-class GameWindow
+class GameWindow: public IWindow
 {
 public:
 	struct Initializer
@@ -25,17 +26,18 @@ public:
 	GameWindow(const Initializer& initializer = {});
 	virtual ~GameWindow();
 
-	InputManager& GetInputManager() { return _inputManager; }
+	InputManager* GetInputManager() override;
 
-	void Open();
-	bool IsClosed() const { return _bIsClosed; }
-	void Close() { _bIsClosed = true; }
+	void Open() override;
+	void Render() override;
 
-	virtual void Render();
+	void HandleEvents() override;
+
+	void Resize(unsigned x, unsigned y) override;
+	glm::uvec2 GetSize() const override;
+
 
 	uint32_t GetWindowId() const;
-	void Resize(unsigned x, unsigned y);
-	SDL_Point GetSize() const;
 
 
 protected:
@@ -44,8 +46,5 @@ protected:
 
 	SDL_Window* _sdlWindow;
 	SDL_GLContext _openglContext;
-
-
-	bool _bIsClosed = true;
 };
 }

@@ -2,7 +2,7 @@
 
 #include <imgui_impl_sdl.h>
 
-#include "GameWindow.h"
+#include "Windows/GameWindow.h"
 
 namespace Inf
 {
