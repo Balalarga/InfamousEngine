@@ -21,3 +21,24 @@ macro(AddPublicModuleDependency ModuleName)
         target_include_directories(${ModuleName} PUBLIC ${Module})
     endforeach()
 endmacro()
+
+macro(DefineFolderModuleWithDeps)
+    cmake_minimum_required(VERSION 3.20)
+    get_filename_component(ModuleName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+    project(${ModuleName} LANGUAGES CXX)
+    file(GLOB_RECURSE PROJECT_SOURCES Source/*.cpp Source/*.h Source/*.hpp)
+    add_library(${ModuleName} ${PROJECT_SOURCES})
+    target_include_directories(${ModuleName} PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/${ModuleName}>
+        $<INSTALL_INTERFACE:Source/${ModuleName}>)
+    target_include_directories(${ModuleName} PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source>
+        $<INSTALL_INTERFACE:Source>)
+    set(DependencyModules ${ARGN})
+    message("${ModuleName} dependencies:")
+    foreach(Module ${DependencyModules})
+        message("  ${Module}")
+        target_link_libraries(${ModuleName} LINK_PUBLIC ${Module})
+        target_include_directories(${ModuleName} PUBLIC ${Module})
+    endforeach()
+endmacro()

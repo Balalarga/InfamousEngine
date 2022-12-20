@@ -1,0 +1,3 @@
+include(BuildSystem)
+
+DefineFolderModuleWithDeps(Utility FileSystem OpenglWrap ResourceManager ECS)
