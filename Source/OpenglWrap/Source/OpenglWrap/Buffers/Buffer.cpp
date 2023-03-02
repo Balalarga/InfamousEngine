@@ -28,14 +28,13 @@ Buffer& Buffer::SetMode(int type)
     return *this;
 }
 
-unsigned Buffer::Create()
+void Buffer::Create()
 {
-    unsigned handler = 0;
     if (!Data.Ptr)
-        return handler;
+        return;
     
-    glGenBuffers(1, &handler);
-    glBindBuffer(Type, handler);
+    glGenBuffers(1, &_handler);
+    glBindBuffer(Type, _handler);
     glBufferData(Type, Data.Count * Data.ItemSize, Data.Ptr, Mode);
 
     int64_t offset = 0;
@@ -50,7 +49,5 @@ unsigned Buffer::Create()
                               (void*)offset);
         offset += Layout.Variables[i].Size * Layout.Variables[i].Count;
     }
-    
-    return handler;
 }
 }

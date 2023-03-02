@@ -9,6 +9,6 @@ out vec4 vertColor;
 
 void main()
 {
-    gl_Position = uModelMatrix * vec4(iVert, 1.0);
+    gl_Position = vec4(iVert, 1.0);
     vertColor = iVertColor;
 }

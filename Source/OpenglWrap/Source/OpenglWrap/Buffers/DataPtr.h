@@ -6,7 +6,7 @@ namespace Inf
 struct DataPtr
 {
 	DataPtr();
-	DataPtr(void* ptr, int64_t count, int64_t itemSize);
+	DataPtr(void* ptr, int count, int64_t itemSize);
 
 	template<class T>
 	DataPtr(const std::vector<T>& items):
@@ -19,7 +19,7 @@ struct DataPtr
 	{}
 
 	void* Ptr;
-	int64_t Count;
+	int Count;
 	int64_t ItemSize;
 };
 

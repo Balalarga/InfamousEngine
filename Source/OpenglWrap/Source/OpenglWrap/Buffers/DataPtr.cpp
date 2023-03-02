@@ -10,7 +10,7 @@ DataPtr::DataPtr():
 
 }
 
-DataPtr::DataPtr(void* ptr, int64_t count, int64_t itemSize):
+DataPtr::DataPtr(void* ptr, int count, int64_t itemSize):
 	Ptr(ptr),
 	Count(count),
 	ItemSize(itemSize)

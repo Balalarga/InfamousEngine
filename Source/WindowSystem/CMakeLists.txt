@@ -1,4 +1,3 @@
 include(BuildSystem)
 
-DefineDefaultModule(WindowSystem)
-AddPublicModuleDependency(WindowSystem ThirdParty)
+DefineFolderModuleWithDeps(ThirdParty OpenglWrap Rendering)

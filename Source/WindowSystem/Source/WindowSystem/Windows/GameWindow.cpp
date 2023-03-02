@@ -5,7 +5,11 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
 
-#include "Opengl.h"
+#include "../../../../Rendering/Source/InfamousEngine/Components/RenderComponent.h"
+
+#include "InfamousEngine/RenderManager.h"
+
+#include "OpenglWrap/Opengl.h"
 
 namespace Inf
 {
@@ -87,6 +91,8 @@ void GameWindow::Open()
 void GameWindow::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	RenderManager::Self().Render();
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();

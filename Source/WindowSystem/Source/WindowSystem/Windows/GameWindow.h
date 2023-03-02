@@ -36,7 +36,6 @@ public:
 	void Resize(unsigned x, unsigned y) override;
 	glm::uvec2 GetSize() const override;
 
-
 	uint32_t GetWindowId() const;
 
 

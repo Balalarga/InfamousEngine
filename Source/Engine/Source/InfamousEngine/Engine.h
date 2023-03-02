@@ -6,9 +6,12 @@
 
 namespace Inf
 {
+class GameWindow;
+
 class Engine
 {
 public:
+	using DefaultWindowType = GameWindow;
 	static Engine& Self();
 	~Engine() = default;
 

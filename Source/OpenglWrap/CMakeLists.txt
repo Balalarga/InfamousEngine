@@ -1,4 +1,3 @@
 include(BuildSystem)
 
-DefineDefaultModule(OpenglWrap)
-AddPublicModuleDependency(OpenglWrap Utility Logger WindowSystem ThirdParty ResourceManager)
+DefineFolderModuleWithDeps(Utility Logger ThirdParty ResourceManager)

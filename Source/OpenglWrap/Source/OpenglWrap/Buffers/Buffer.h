@@ -23,6 +23,12 @@ struct Buffer
     int Type = GL_ARRAY_BUFFER;
     int Mode = GL_STATIC_DRAW;
 
-    unsigned Create();
+    unsigned GetHandler() const { return _handler; }
+
+    void Create();
+
+
+private:
+    unsigned _handler = 0;
 };
 }
