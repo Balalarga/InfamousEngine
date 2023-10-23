@@ -1,32 +1,12 @@
-# Prerequisites
-*.d
+.cache/
+.idea/
+.vs/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+[Dd]ebug/
+[Rr]elease/
+[Bb]uild/
 
-# Precompiled Headers
-*.gch
-*.pch
+vcpkg_installed/
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+compile_commands.json
+*.sln

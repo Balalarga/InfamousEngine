@@ -1,0 +1,15 @@
+[submodule "ThirdParty/ImGui"]
+	path = ThirdParty/ImGui
+	url = https://github.com/ocornut/imgui.git
+[submodule "ThirdParty/fmt"]
+	path = ThirdParty/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "ThirdParty/RapidJson"]
+	path = ThirdParty/RapidJson
+	url = https://github.com/Tencent/rapidjson.git
+[submodule "ThirdParty/Cereal"]
+	path = ThirdParty/Cereal
+	url = https://github.com/USCiLab/cereal.git
+[submodule "vcpkg"]
+	path = vcpkg
+	url = https://github.com/microsoft/vcpkg.git
