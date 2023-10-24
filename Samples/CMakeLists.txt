@@ -13,4 +13,5 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${RESOURCE_FILES})
 #target_compile_definitions(${PROJECT_NAME} PRIVATE "RESOURCES_DIR=\"${RESOURCES_DIR}\"")
 #set_target_properties(${PROJECT_NAME} PROPERTIES RESOURCE "${RESOURCE_FILES}")
 
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Samples")
 target_link_libraries(${PROJECT_NAME} InfamousEngine)
