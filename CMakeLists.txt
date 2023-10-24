@@ -10,7 +10,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
-set(CXX_SOURCE_DIR InfamousEngine)
+set(CXX_SOURCE_DIR Source)
 
 add_library(${PROJECT_NAME} INTERFACE IMPORTED)
 
@@ -26,9 +26,7 @@ function(RecursivlyAddSubdirectories TARGET_SOURCE_DIR)
             if(EXISTS ${ITEM}/CMakeLists.txt)
                 add_subdirectory(${ITEM})
                 target_link_libraries(${PROJECT_NAME} INTERFACE ${DirName})
-                message("Args for lib ${DirName}: ${FOLDER_PATH}")
                 if (FOLDER_PATH)
-                    message("Subfolder ${FOLDER_PATH}")
                     set_target_properties(${DirName} PROPERTIES FOLDER "${FOLDER_PATH}")
                 endif()
             else()
