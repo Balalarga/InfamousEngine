@@ -1,5 +1,8 @@
 #pragma once
 #include "IWindow.h"
+#include "gl/glew.h"
+#include "GLFW/glfw3.h"
+
 
 namespace Inf
 {
@@ -7,10 +10,15 @@ namespace Inf
 class Window: public IWindow
 {
 public:
-	using IWindow::IWindow;
+	Window(WindowParams&& params);
+	~Window();
 
-	void Open() override;
+	bool IsValid() const override;
+	void Run() override;
 	void Close(bool forced) override;
+
+private:
+	struct GLFWwindow*_glfwWindow = nullptr;
 };
 
 }
