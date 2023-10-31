@@ -1,4 +1,7 @@
 ﻿#pragma once
+#include <chrono>
+#include <memory>
+
 #include "WindowParams.h"
 
 namespace Inf
@@ -9,9 +12,14 @@ public:
 	IWindow(WindowParams&& params);
 	virtual ~IWindow();
 
+	virtual void Run(std::unique_ptr<class IWindowUpdateLoop>&& updateLoop);
 	virtual bool IsValid() const = 0;
-	virtual void Run() = 0;
 	virtual void Close(bool forced = false) = 0;
+	virtual bool IsOpened() const = 0;
+	
+	// TODO: Move somewhere else
+	virtual std::chrono::microseconds GetSystemTime() const = 0;
+	
 
 	const WindowParams& GetParams() const
 	{
@@ -22,4 +30,4 @@ public:
 private:
 	WindowParams _params;
 };
-}
+} // namespace Inf

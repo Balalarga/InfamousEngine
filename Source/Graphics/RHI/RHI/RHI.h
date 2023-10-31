@@ -1,7 +1,7 @@
 #pragma once
 
-class Engine
+
+class IRhi
 {
 public:
-
 };

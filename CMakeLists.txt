@@ -57,3 +57,9 @@ endif()
 if (EXISTS ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
     configure_file(${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json COPYONLY)
 endif()
+
+add_custom_target(RegenerateProject
+    COMMAND
+        cmake -S ${CMAKE_SOURCE_DIR} -B ${CMAKE_BINARY_DIR} -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
+    VERBATIM
+)

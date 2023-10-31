@@ -2,7 +2,6 @@
 Language: Cpp
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
-AlignAfterOpenBracket: AlwaysBreak
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
 AlignOperands: false
@@ -33,7 +32,7 @@ BraceWrapping:
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
 BreakBeforeBraces: Custom
-BreakConstructorInitializers: BeforeComma
+BreakConstructorInitializers: AfterColon
 ColumnLimit: 120
 EmptyLineBeforeAccessModifier: Leave
 IncludeCategories: 
@@ -46,13 +45,13 @@ IncludeCategories:
 IncludeIsMainRegex: '([-_](test|unittest))?$'
 IndentWidth: 4
 MacroBlockBegin: ''
+LineEnding: CRLF
 MacroBlockEnd: ''
 MaxEmptyLinesToKeep: 2
-NamespaceIndentation: All
-PointerAlignment: Left
-ReferenceAlignment: Left
 SpaceBeforeInheritanceColon: false
+SpaceBeforeRangeBasedForLoopColon: false
 SpacesInAngles: false
 TabWidth: 4
 UseTab: Always
+PointerAlignment: Left
 ...

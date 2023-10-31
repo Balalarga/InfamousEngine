@@ -6,8 +6,15 @@ find_package(imgui CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(GLEW REQUIRED)
 
-file(GLOB_RECURSE RESOURCE_FILES ./*.cpp ./*.h ./*.hpp)
-add_library(${PROJECT_NAME} ${RESOURCE_FILES})
+set(PROJECT_SOURCE_DIR ${PROJECT_NAME})
+file(GLOB_RECURSE SOURCE_FILES
+    ${PROJECT_SOURCE_DIR}/*.cpp
+    ${PROJECT_SOURCE_DIR}/*.h
+    ${PROJECT_SOURCE_DIR}/*.hpp
+)
+
+add_library(${PROJECT_NAME} ${SOURCE_FILES})
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW)
