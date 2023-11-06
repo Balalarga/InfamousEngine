@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.15)
 
 project(InfamousEngineSamples LANGUAGES CXX)
 
-file(GLOB_RECURSE PROJECT_SOURCES ./*.cpp ./*.h ./*.hpp)
+file(GLOB_RECURSE PROJECT_SOURCES Sample1/*.cpp Sample1/*.h Sample1/*.hpp)
 
 # Resources folder
-set(RESOURCES_DIR Resources)
+set(RESOURCES_DIR Sample1/Resources)
 # Find all resources
 file(GLOB_RECURSE RESOURCE_FILES ${CMAKE_SOURCE_DIR}/${RESOURCES_DIR}/*)
 

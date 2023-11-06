@@ -7,7 +7,10 @@ IWindow::IWindow(WindowParams&& params) : _params(std::move(params))
 {
 }
 
-IWindow::~IWindow() = default;
+IWindow::~IWindow()
+{
+	
+}
 
 void IWindow::Run(std::unique_ptr<IWindowUpdateLoop>&& updateLoop)
 {

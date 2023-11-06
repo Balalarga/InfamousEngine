@@ -53,9 +53,12 @@ if (${IS_MAIN_MODULE})
     add_subdirectory(Samples)
 endif()
 
-
 if (EXISTS ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
-    configure_file(${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json COPYONLY)
+    file(CREATE_LINK
+        "${CMAKE_BINARY_DIR}/compile_commands.json"
+        "${CMAKE_SOURCE_DIR}/compile_commands.json"
+        SYMBOLIC
+    )
 endif()
 
 add_custom_target(RegenerateProject

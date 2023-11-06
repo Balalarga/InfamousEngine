@@ -1,7 +1,6 @@
-#include <iostream>
-
-
 #include "Window.h"
+
+#include <iostream>
 
 namespace Inf
 {

@@ -16,6 +16,7 @@ public:
 	virtual void EndLoop(std::chrono::microseconds time) = 0;
 };
 
+
 class SimpleWindowUpdateLoop: public IWindowUpdateLoop
 {
 public:
