@@ -5,10 +5,15 @@
 
 namespace Inf
 {
-void SimpleWindowUpdateLoop::BeginLoop(std::chrono::microseconds time)
+void IWindowUpdateLoop::BeginLoop()
 {
-	if (bRender)
-		_frameStart = time;
+	_timeline.Update();
+	_frameStart = _timeline.GetPassedTime();
+}
+
+void IWindowUpdateLoop::EndLoop()
+{
+	_frameEnd = _timeline.GetPassedTime();
 }
 
 void SimpleWindowUpdateLoop::HandleEvents()
@@ -18,7 +23,7 @@ void SimpleWindowUpdateLoop::HandleEvents()
 
 void SimpleWindowUpdateLoop::Update()
 {
-	std::cout << "Frame time = " << GetLastFrameTime().count()/1000.f << "ms" << std::endl;
+	std::cout << "Frame time = " << GetLastFrameTime() << "ms" << std::endl;
 }
 
 void SimpleWindowUpdateLoop::Render()
@@ -26,24 +31,21 @@ void SimpleWindowUpdateLoop::Render()
 	bRender = false;
 }
 
-void SimpleWindowUpdateLoop::EndLoop(std::chrono::microseconds time)
+void SimpleWindowUpdateLoop::EndLoop()
 {
-	_frameEnd = time;
-	if (_targetFrameTime.count() != 0 && _targetFrameTime.count() - GetLastFrameTime().count() <= 0)
-		bRender = true;
 }
 
-std::chrono::milliseconds SimpleWindowUpdateLoop::GetLastFrameTime() const
+Milliseconds SimpleWindowUpdateLoop::GetLastFrameTime() const
 {
-	return std::chrono::duration_cast<std::chrono::milliseconds>(_frameEnd - _frameStart);
+	return std::chrono::duration_cast<Milliseconds>(_frameStart - _frameEnd);
 }
 
 void SimpleWindowUpdateLoop::SetFrameLimit(unsigned frames)
 {
 	_frameLimit = frames;
 	if (frames > 0)
-		_targetFrameTime = std::chrono::milliseconds(static_cast<long long>(1'000'000 / frames));
+		_targetFrameTime = Milliseconds(static_cast<long long>(1'000'000 / frames));
 	else
-		_targetFrameTime = std::chrono::milliseconds(0);
+		_targetFrameTime = Milliseconds(0);
 }
 }

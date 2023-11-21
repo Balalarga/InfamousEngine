@@ -5,8 +5,8 @@
 
 struct WindowParams
 {
-	std::string title = "InfamousEngine Window";
-	glm::uvec2 size = {800, 600};
-	glm::uvec2 pos = {-1, -1};
+	std::string title = "InfamousEngine";
+	glm::ivec2 size = {1280, 720};
+	glm::ivec2 pos = {-1, -1};
 	std::pair<short, short> openglVersion = {3, 0};
 };

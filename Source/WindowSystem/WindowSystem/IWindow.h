@@ -17,10 +17,6 @@ public:
 	virtual void Close(bool forced = false) = 0;
 	virtual bool IsOpened() const = 0;
 	
-	// TODO: Move somewhere else
-	virtual std::chrono::microseconds GetSystemTime() const = 0;
-	
-
 	const WindowParams& GetParams() const
 	{
 		return _params;

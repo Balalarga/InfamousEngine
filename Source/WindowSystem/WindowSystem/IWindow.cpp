@@ -1,5 +1,6 @@
 ﻿#include "IWindow.h"
 #include "IWindowUpdateLoop.h"
+#include "Time/Time.h"
 
 namespace Inf
 {
@@ -16,11 +17,11 @@ void IWindow::Run(std::unique_ptr<IWindowUpdateLoop>&& updateLoop)
 {
 	while(IsOpened())
 	{
-		updateLoop->BeginLoop(GetSystemTime());
+		updateLoop->BeginLoop();
 		updateLoop->HandleEvents();
 		updateLoop->Update();
 		updateLoop->Render();
-		updateLoop->EndLoop(GetSystemTime());
+		updateLoop->EndLoop();
 	}
 }
 } // namespace Inf

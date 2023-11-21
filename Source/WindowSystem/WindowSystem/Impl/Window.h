@@ -10,13 +10,12 @@ namespace Inf
 class Window: public IWindow
 {
 public:
-	Window(WindowParams&& params = WindowParams());
-	virtual ~Window();
+	explicit Window(WindowParams&& params = WindowParams());
+	~Window() override;
 
 	bool IsValid() const override;
 	bool IsOpened() const override;
 	void Close(bool forced) override;
-	std::chrono::microseconds GetSystemTime() const override;
 
 
 private:

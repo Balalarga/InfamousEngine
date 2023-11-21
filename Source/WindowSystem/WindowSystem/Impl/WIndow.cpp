@@ -51,8 +51,4 @@ void Window::Close(bool forced)
 	glfwSetWindowShouldClose(_glfwWindow, true);
 }
 
-std::chrono::microseconds Window::GetSystemTime() const
-{
-	return std::chrono::microseconds(static_cast<long long>(glfwGetTime() / 1'000'000));
-}
 } // namespace Inf
