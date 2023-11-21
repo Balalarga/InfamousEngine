@@ -9,7 +9,7 @@ namespace Inf
 class IWindow
 {
 public:
-	IWindow(WindowParams&& params);
+	explicit IWindow(WindowParams&& params);
 	virtual ~IWindow();
 
 	virtual void Run(std::unique_ptr<class IWindowUpdateLoop>&& updateLoop);

@@ -14,6 +14,7 @@ void IWindowUpdateLoop::BeginLoop()
 void IWindowUpdateLoop::EndLoop()
 {
 	_frameEnd = _timeline.GetPassedTime();
+	_lastFrameTime = _frameStart - _frameEnd;
 }
 
 void SimpleWindowUpdateLoop::HandleEvents()
@@ -23,21 +24,12 @@ void SimpleWindowUpdateLoop::HandleEvents()
 
 void SimpleWindowUpdateLoop::Update()
 {
-	std::cout << "Frame time = " << GetLastFrameTime() << "ms" << std::endl;
+	std::cout << "Frame time = " << GetFrameTime() << "ms" << std::endl;
 }
 
 void SimpleWindowUpdateLoop::Render()
 {
 	bRender = false;
-}
-
-void SimpleWindowUpdateLoop::EndLoop()
-{
-}
-
-Milliseconds SimpleWindowUpdateLoop::GetLastFrameTime() const
-{
-	return std::chrono::duration_cast<Milliseconds>(_frameStart - _frameEnd);
 }
 
 void SimpleWindowUpdateLoop::SetFrameLimit(unsigned frames)

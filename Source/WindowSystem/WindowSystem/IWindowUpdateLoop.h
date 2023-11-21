@@ -29,7 +29,7 @@ public:
 	
 	Milliseconds GetFrameTime() const
 	{
-		return _frameStart - _frameEnd;
+		return _lastFrameTime;
 	}
 
 
@@ -37,19 +37,16 @@ private:
 	Timeline _timeline;
 	Milliseconds _frameStart{};
 	Milliseconds _frameEnd{};
+	Milliseconds _lastFrameTime{};
 };
 
 
 class SimpleWindowUpdateLoop: public IWindowUpdateLoop
 {
 public:
-	void BeginLoop() override;
 	void HandleEvents() override;
 	void Update() override;
 	void Render() override;
-	void EndLoop() override;
-
-	Milliseconds GetLastFrameTime() const;
 
 	void SetFrameLimit(unsigned frames = 0);
 
