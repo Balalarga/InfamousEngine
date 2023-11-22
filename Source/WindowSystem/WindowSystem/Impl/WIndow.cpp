@@ -36,14 +36,29 @@ Window::~Window()
 	glfwTerminate();
 }
 
+void Window::HandleEvents()
+{
+	glfwPollEvents();
+}
+
 bool Window::IsValid() const
 {
 	return !!_glfwWindow;
 }
 
+void Window::Update(const Milliseconds& deltaTime)
+{
+	std::cout << "Frame update " << deltaTime << std::endl;
+}
+
 bool Window::IsOpened() const
 {
 	return !glfwWindowShouldClose(_glfwWindow);
+}
+
+void Window::Open()
+{
+	glfwSetWindowShouldClose(_glfwWindow, false);
 }
 
 void Window::Close(bool forced)
