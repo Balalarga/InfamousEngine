@@ -7,20 +7,20 @@
 
 namespace Inf
 {
-class Window: public IWindow
+class GlfwWindow: public IWindow
 {
 public:
-	explicit Window(WindowParams&& params = WindowParams());
-	~Window() override;
+	explicit GlfwWindow(const WindowParams& params = WindowParams());
+	~GlfwWindow() override;
 
 	void HandleEvents() override;
 	bool IsValid() const override;
-	void Update(const Milliseconds& deltaTime) override;
+	void Update(const Microseconds& deltaTime) override;
 	bool IsOpened() const override;
 	void Open() override;
 	void Close(bool forced) override;
 
-	
+
 
 private:
 	GLFWwindow* _glfwWindow = nullptr;

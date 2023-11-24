@@ -9,5 +9,5 @@ struct WindowParams
 	glm::ivec2 size = {1280, 720};
 	glm::ivec2 pos = {-1, -1};
 	std::pair<short, short> openglVersion = {3, 0};
-	int fps = 0;
+	short fps = 0;
 };

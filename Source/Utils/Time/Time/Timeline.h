@@ -5,21 +5,37 @@
 namespace Inf
 {
 
+template<class TClock = DefaultClock>
 class Timeline
 {
 public:
-	explicit Timeline(const DefaultTimePoint& point = DefaultClock::now());
+	using BaseDuration = typename TimePoint<TClock>::duration;
 	
-	template<class TDuration = Milliseconds>
-	requires IsADuration<TDuration>
+	explicit Timeline(const TimePoint<TClock>& point = TClock::now()): _startTime(point)
+	{
+	}
+	
+	template<class TDuration = BaseDuration>
+	requires TIsDuration<TDuration>
 	TDuration GetPassedTime() const
 	{
-		return std::chrono::duration_cast<TDuration>(DefaultClock::now() - _startTime);
+		return std::chrono::duration_cast<TDuration>(TClock::now() - _startTime);
 	}
 
 
 private:
-	DefaultTimePoint _startTime;
+	TimePoint<TClock> _startTime;
 };
 
+namespace Time
+{
+template<class T>
+const Timeline<T>& GlobalTimeline() = delete;
+
+template<>
+const Timeline<DefaultClock>& GlobalTimeline();
+
+template<>
+const Timeline<HighResClock>& GlobalTimeline();
+}
 }
