@@ -6,18 +6,27 @@
 #include <timeapi.h>
 #endif
 
-namespace Inf
+namespace Inf::Window
 {
 IWindow::IWindow(const WindowParams& params) :
 	_params(params),
 	_frameTimer(false),
 	_updateTimer(false)
 {
+#if WIN32
+	// THINK: App lifetime???
+	timeBeginPeriod(1);
+#endif
 	if (_params.fps > 0)
 		_targetFrameTime = Microseconds(1'000'000 / _params.fps);
 }
 
-IWindow::~IWindow() = default;
+IWindow::~IWindow()
+{
+#if WIN32
+	timeEndPeriod(1);
+#endif
+}
 
 void IWindow::Run()
 {
@@ -43,10 +52,6 @@ void IWindow::Run()
 
 void IWindow::DelayTime(const Timeline<>::BaseDuration& passed)
 {
-#if WIN32
-	// TODO: Make it for app lifetime???
-	timeBeginPeriod(1);
-#endif
 	auto sleepTime = _targetFrameTime - passed;
 	if (_targetFrameTime > passed)
 	{
@@ -55,8 +60,5 @@ void IWindow::DelayTime(const Timeline<>::BaseDuration& passed)
 			sleepTime -= Microseconds{1500};
 		std::this_thread::sleep_for(sleepTime);
 	}
-#if WIN32
-	timeEndPeriod(1);
-#endif
 }
 } // namespace Inf

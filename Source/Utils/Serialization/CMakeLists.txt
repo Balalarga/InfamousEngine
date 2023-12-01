@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(Json LANGUAGES CXX)
+project(Serialization LANGUAGES CXX)
 
 find_package(nlohmann_json CONFIG REQUIRED)
 

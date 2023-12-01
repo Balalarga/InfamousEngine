@@ -3,6 +3,8 @@
 #include "glm/vec2.hpp"
 
 
+namespace Inf::Window
+{
 struct WindowParams
 {
 	std::string title = "InfamousEngine";
@@ -11,3 +13,4 @@ struct WindowParams
 	std::pair<short, short> openglVersion = {3, 0};
 	short fps = 0;
 };
+}

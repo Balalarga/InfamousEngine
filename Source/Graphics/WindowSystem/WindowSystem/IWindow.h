@@ -5,7 +5,7 @@
 #include "Time/Timeline.h"
 #include "Time/Timer.h"
 
-namespace Inf
+namespace Inf::Window
 {
 class IWindow
 {

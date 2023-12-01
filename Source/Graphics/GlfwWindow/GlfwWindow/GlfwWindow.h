@@ -5,7 +5,7 @@
 #include "IWindow.h"
 
 
-namespace Inf
+namespace Inf::Window
 {
 class GlfwWindow: public IWindow
 {

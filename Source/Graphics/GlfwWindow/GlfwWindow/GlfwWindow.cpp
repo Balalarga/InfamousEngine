@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace Inf
+namespace Inf::Window
 {
 void Error(int error_code, const char* description)
 {
