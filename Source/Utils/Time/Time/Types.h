@@ -12,6 +12,7 @@
 
 namespace Inf
 {
+
 template <class T>
 concept TIsDuration = std::is_same_v<T, std::chrono::duration<typename T::rep, typename T::period>>;
 

@@ -1,5 +1,9 @@
 #pragma once
-#include <string>
+
+#include <cstdint>
+#include <ranges>
+#include <type_traits>
+
 
 namespace Inf
 {
@@ -13,22 +17,25 @@ enum class Mode: uint8_t
 };
 }
 
+
 class IStream
 {
 	template<class T>
-	friend IStream& operator<<(IStream&, T& data);
+	friend IStream& operator<<(IStream& stream, T& data);
+
+	
 public:
 	explicit IStream(const Stream::Mode& mode = Stream::Mode::Load);
 	virtual ~IStream();
+
+	virtual bool Open() = 0;
+	virtual void Close() = 0;
 	
 	Stream::Mode GetMode() const;
 	virtual bool IsLoading() const;
 	virtual bool IsSaving() const;
-	
-	virtual void Serialize(void* ptr, int64_t len) {}
 
-	virtual IStream& operator<<(ISerializable& val);
-	virtual IStream& operator<<(ISerializable* val);
+	virtual void Serialize(void* ptr, uint64_t size) = 0;
 
 
 protected:
@@ -40,13 +47,23 @@ private:
 };
 
 
-template<class T>
-	requires std::is_fundamental_v<T>
-IStream& operator<<(IStream& stream, T& val)
+template<std::ranges::random_access_range T>
+IStream& operator<<(IStream& stream, T& data)
 {
-	stream.Serialize(&val, sizeof(T));
+	for (auto& i: data)
+		stream << i;
+	
 	return stream;
 }
 
-
+template<class T>
+IStream& operator<<(IStream& stream, T& data)
+{
+	if constexpr (std::is_base_of_v<ISerializable, T>)
+		data.Serialize(stream);
+	else
+		stream.Serialize(&data, sizeof(T));
+	
+	return stream;
+}
 }

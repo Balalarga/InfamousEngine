@@ -12,3 +12,4 @@ public:
 	virtual void Release() = 0;
 	virtual void Present() = 0;
 };
+

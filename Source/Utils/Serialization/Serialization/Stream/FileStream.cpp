@@ -2,20 +2,38 @@
 
 namespace Inf
 {
-FileStream::FileStream(const std::filesystem::path& path, const Stream::Mode& mode): IStream(mode)
+FileStream::FileStream(std::filesystem::path  path, const Stream::Mode& mode, Format format):
+	IStream(mode),
+	_format(format),
+	_openFlags(format == Format::Binary ? std::ios::binary : 0),
+	_filepath(std::move(path))
 {
-	int openFlags = std::ios::binary;
+}
+
+FileStream::~FileStream()
+{
+	_fstream.close();
+}
+
+bool FileStream::Open()
+{
 	switch (GetMode())
 	{
 	case Stream::Mode::Load:
-		openFlags |= std::ios::in;
+		_openFlags |= std::ios::in;
 		break;
 	case Stream::Mode::Save:
-		openFlags |= std::ios::out;
+		_openFlags |= std::ios::out;
 		break;
 	}
-	_fstream.open(path, openFlags);
+	_fstream.open(_filepath, _openFlags);
 	_isOpened = _fstream.is_open();
+	return _isOpened;
+}
+
+void FileStream::Close()
+{
+	_fstream.close();
 }
 
 bool FileStream::IsValid() const
@@ -28,7 +46,7 @@ FileStream::operator bool() const
 	return IsValid();
 }
 
-void FileStream::Serialize(void* ptr, int64_t len)
+void FileStream::Serialize(void* ptr, uint64_t len)
 {
 	if (!IsValid())
 		return;
@@ -37,6 +55,7 @@ void FileStream::Serialize(void* ptr, int64_t len)
 	{
 	case Stream::Mode::Load:
 		_fstream.read(static_cast<char*>(ptr), len);
+		break;
 	case Stream::Mode::Save:
 		_fstream.write(static_cast<char*>(ptr), len);
 		break;
