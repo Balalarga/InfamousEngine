@@ -1,9 +1,11 @@
 ﻿#include "IWindow.h"
 
+#include <thread>
 #include "Time/Time.h"
+
 #if WIN32
-#include <Windows.h>
-#include <timeapi.h>
+	#include <Windows.h>
+	#include <timeapi.h>
 #endif
 
 namespace Inf::Window

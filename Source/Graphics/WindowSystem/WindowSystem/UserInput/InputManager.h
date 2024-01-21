@@ -1,19 +1,18 @@
 #pragma once
-#include <vector>
+#include <array>
+#include <functional>
+#include <map>
 
 
 namespace Inf::Window
 {
-
-class IInputHandler;
-
-class InputManager
+class IInputManager
 {
 public:
-	static InputManager& Instance();
-
+	virtual ~IInputManager() = default;
+	void OnKeyPressed();
+	void OnKeyReleased();
 	
-private:
-	std::vector<IInputHandler*> _handlers;
+	
 };
 }
