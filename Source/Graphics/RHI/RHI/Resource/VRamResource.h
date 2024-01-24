@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <optional>
 
 
 namespace Inf
@@ -12,18 +13,23 @@ public:
 	virtual ~VRamResource();
 
 	bool Build();
-	virtual bool IsValid();
+	// void Rebuild();
+	void Destruct();
 
+	virtual bool IsValid();
+	
+	const std::optional<THandler>& GetHandler() const;
+	
 	
 protected:
 	virtual void PreAllocate();
 	virtual void PostAllocate();
 	
-	virtual THandler Allocate() = 0;
-	virtual void Deallocate();
+	virtual std::optional<THandler> Allocate() = 0;
+	virtual void Deallocate(const THandler& handler);
 
 	
 private:
-	THandler _handler = 0;
+	std::optional<THandler> _handler;
 };
 }

@@ -93,7 +93,7 @@ public:
 	
 
 protected:
-	THandler Allocate() override;
+	std::optional<THandler> Allocate() override;
 
 
 private:

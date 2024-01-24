@@ -4,16 +4,20 @@
 namespace Inf
 {
 VRamResource::VRamResource() = default;
-VRamResource::~VRamResource() = default;
+
+VRamResource::~VRamResource()
+{
+	Destruct();
+}
 
 bool VRamResource::Build()
 {
 	PreAllocate();
 	
 	_handler = Allocate();
-	if (!IsValid())
+	if (!_handler)
 	{
-		Deallocate();
+		Destruct();
 		return false;
 	}
 	
@@ -30,13 +34,26 @@ void VRamResource::PostAllocate()
 {
 }
 
-void VRamResource::Deallocate()
+void VRamResource::Deallocate(const THandler& handler)
 {
-	_handler = 0;
 }
 
 bool VRamResource::IsValid()
 {
-	return _handler != 0;
+	return _handler.has_value();
+}
+
+void VRamResource::Destruct()
+{
+	if (!IsValid())
+		return;
+
+	Deallocate(_handler.value());
+	_handler.reset();
+}
+
+const std::optional<VRamResource::THandler>& VRamResource::GetHandler() const
+{
+	return _handler;
 }
 }

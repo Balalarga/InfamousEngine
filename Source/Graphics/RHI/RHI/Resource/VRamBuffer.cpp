@@ -68,12 +68,12 @@ VRamBuffer::UsageMode VRamBuffer::GetUsageMode() const
 	return static_cast<UsageMode>(_usageMode);
 }
 
-VRamResource::THandler VRamBuffer::Allocate()
+std::optional<VRamResource::THandler> VRamBuffer::Allocate()
 {
 	unsigned handler = 0;
 	// TODO: exception here
 	if (!_data.Ptr || _data.Count == 0 || _data.Size == 0)
-		return static_cast<THandler>(handler);
+		return {};
 	
 	glGenBuffers(1, &handler);
 	glBindBuffer(_type, handler);
