@@ -68,7 +68,7 @@ VRamBuffer::UsageMode VRamBuffer::GetUsageMode() const
 	return static_cast<UsageMode>(_usageMode);
 }
 
-std::optional<VRamResource::THandler> VRamBuffer::Allocate()
+std::optional<VRamResource::THandle> VRamBuffer::Allocate()
 {
 	unsigned handler = 0;
 	// TODO: exception here
@@ -92,6 +92,6 @@ std::optional<VRamResource::THandler> VRamBuffer::Allocate()
 		offset += _layout.Variables()[i].Size * _layout.Variables()[i].Count;
 	}
 
-	return static_cast<THandler>(handler);
+	return static_cast<THandle>(handler);
 }
 }

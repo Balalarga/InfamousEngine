@@ -93,7 +93,7 @@ public:
 	
 
 protected:
-	std::optional<THandler> Allocate() override;
+	std::optional<THandle> Allocate() override;
 
 
 private:

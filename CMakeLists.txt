@@ -62,6 +62,5 @@ endif()
 
 add_custom_target(RegenerateProject
     COMMAND
-        cmake -S ${CMAKE_SOURCE_DIR} -B ${CMAKE_BINARY_DIR} -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
-    VERBATIM
+        ${CMAKE_SOURCE_DIR}/GenerateProjectFiles.bat
 )

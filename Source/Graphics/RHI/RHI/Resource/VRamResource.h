@@ -7,7 +7,7 @@ namespace Inf
 class VRamResource
 {
 public:
-	using THandler = int;
+	using THandle = int;
 	
 	VRamResource();
 	virtual ~VRamResource();
@@ -18,18 +18,18 @@ public:
 
 	virtual bool IsValid();
 	
-	const std::optional<THandler>& GetHandler() const;
+	const std::optional<THandle>& GetHandle() const;
 	
 	
 protected:
 	virtual void PreAllocate();
 	virtual void PostAllocate();
 	
-	virtual std::optional<THandler> Allocate() = 0;
-	virtual void Deallocate(const THandler& handler);
+	virtual std::optional<THandle> Allocate() = 0;
+	virtual void Deallocate(const THandle& handle);
 
 	
 private:
-	std::optional<THandler> _handler;
+	std::optional<THandle> _handle;
 };
 }

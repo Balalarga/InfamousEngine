@@ -22,8 +22,8 @@ public:
 	
 protected:
 	void PostAllocate() override;
-	std::optional<THandler> Allocate() override;
-	void Deallocate(const THandler& handler) override;
+	std::optional<THandle> Allocate() override;
+	void Deallocate(const THandle& handler) override;
 
 	void ReleaseImpl() override;
 

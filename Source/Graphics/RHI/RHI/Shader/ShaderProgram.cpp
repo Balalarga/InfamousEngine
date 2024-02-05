@@ -26,27 +26,27 @@ bool ShaderProgram::AttachShader(const std::shared_ptr<Shader>& newShader)
 
 void ShaderProgram::PostAllocate()
 {
-	const THandler handler = GetHandler().value();
+	const THandle handler = GetHandle().value();
 	for (const std::shared_ptr<Shader>& shader : _shaders)
 	{
 		if (shader && shader->Build())
-			glAttachShader(handler, shader->GetHandler().value());
+			glAttachShader(handler, shader->GetHandle().value());
 	}
 
 	glLinkProgram(handler);
 }
 
-std::optional<VRamResource::THandler> ShaderProgram::Allocate()
+std::optional<VRamResource::THandle> ShaderProgram::Allocate()
 {
 	return glCreateProgram();
 }
 
-void ShaderProgram::Deallocate(const THandler& handler)
+void ShaderProgram::Deallocate(const THandle& handler)
 {
 	for (const std::shared_ptr<Shader>& shader : _shaders)
 	{
 		if (shader && shader->IsValid())
-			glDetachShader(handler, shader->GetHandler().value());
+			glDetachShader(handler, shader->GetHandle().value());
 	}
 	glDeleteProgram(handler);
 	_shaders.clear();
@@ -54,7 +54,7 @@ void ShaderProgram::Deallocate(const THandler& handler)
 
 void ShaderProgram::Bind()
 {
-	glUseProgram(GetHandler().value());
+	glUseProgram(GetHandle().value());
 }
 
 void ShaderProgram::ReleaseImpl()

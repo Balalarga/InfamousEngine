@@ -25,8 +25,8 @@ public:
 
 
 protected:
-	std::optional<THandler> Allocate() override;
-	void Deallocate(const THandler& handler) override;
+	std::optional<THandle> Allocate() override;
+	void Deallocate(const THandle& handler) override;
 
 
 private:
