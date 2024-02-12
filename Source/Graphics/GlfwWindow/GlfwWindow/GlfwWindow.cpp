@@ -2,14 +2,17 @@
 
 #include <iostream>
 
-namespace Inf::Window
+#include "UserInput/InputManager.h"
+
+namespace Inf
 {
 void Error(int error_code, const char* description)
 {
 	std::cout << "GLFW error(" << error_code << "): " << description << std::endl;
 }
 
-GlfwWindow::GlfwWindow(const WindowParams& params) : IWindow(params)
+GlfwWindow::GlfwWindow(const WindowParams& params) :
+	IWindow(params)
 {
 	if (!glfwInit())
 	{
@@ -28,11 +31,13 @@ GlfwWindow::GlfwWindow(const WindowParams& params) : IWindow(params)
 		nullptr);
 	if (!_glfwWindow)
 		return;
-	
+
 	glfwMakeContextCurrent(_glfwWindow);
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK)
 		return;
+
+	InputManager::AttachToWindow(_glfwWindow);
 }
 
 GlfwWindow::~GlfwWindow()

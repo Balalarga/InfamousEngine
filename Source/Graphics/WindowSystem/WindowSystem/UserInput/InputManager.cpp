@@ -3,8 +3,19 @@
 #include <GLFW/glfw3.h>
 
 
-namespace Inf::Window
+namespace Inf
 {
+KeyBindHandle::~KeyBindHandle()
+{
+	InputManager::Instance().Unbind(button, handleId);
+}
+
+KeyBindHandle::KeyBindHandle(const KeyboardButtons& key, const OnKeyCallback& func) :
+	handleId(InputManager::Instance().Bind(key, func))
+	, button(key)
+{
+}
+
 InputManager& InputManager::Instance()
 {
 	static InputManager self;
@@ -13,31 +24,45 @@ InputManager& InputManager::Instance()
 
 InputManager::InputManager()
 {
-	_keyboard.resize(static_cast<int>(KeyboardButtons::TOTAL_NUMBER));
 }
 
 void InputManager::AttachToWindow(GLFWwindow* window)
 {
-	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-	{
-		Instance().GlfwKeyCallback(window, key, scancode, action, mods);
-	}); 
+	glfwSetKeyCallback(
+		window,
+		[](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			Instance().GlfwKeyCallback(window, key, scancode, action, mods);
+		});
 }
 
-InputManager::FunctionHandle InputManager::Bind(const KeyboardButtons& key, const KeyCallback& func)
+size_t InputManager::Bind(const KeyboardButtons& key, const OnKeyCallback& func)
 {
-	auto& keyFuncs = _keyboard[static_cast<int>(key)];
-	keyFuncs.emplace_back(func);
-	return keyFuncs.size();
+	auto it = _keyboard.find(key);
+	if (it == _keyboard.end())
+		it = _keyboard.emplace().first;
+
+	return it->second.emplace_back(it->second.size(), func).handleId;
 }
 
-void InputManager::Unbind(FunctionHandle handle)
+void InputManager::Unbind(const KeyboardButtons& key, size_t handleId)
 {
-	
+	const auto it = _keyboard.find(key);
+	if (it == _keyboard.end())
+		return;
+
+	it->second.remove_if(
+		[&handleId](const FunctionDescriptor& item)
+		{
+			return item.handleId == handleId;
+		});
 }
 
 void InputManager::GlfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+	if (action == GLFW_REPEAT)
+		return;
+
 	static auto GetModifiers = [](int modifiers)
 	{
 		std::set<KeyboardModifiers> modSet;
@@ -53,14 +78,18 @@ void InputManager::GlfwKeyCallback(GLFWwindow* window, int key, int scancode, in
 			modSet.insert(KeyboardModifiers::NumLock);
 		if (modifiers & GLFW_MOD_CAPS_LOCK)
 			modSet.insert(KeyboardModifiers::CapsLock);
-		
+
 		return modSet;
 	};
-	
-	if (action == GLFW_REPEAT)
+
+	const std::set<KeyboardModifiers> modifiers = GetModifiers(mods);
+	const float keyVal = action == GLFW_PRESS ? 1.f : -1.f;
+
+	const auto it = _keyboard.find(static_cast<KeyboardButtons>(key));
+	if (it == _keyboard.end())
 		return;
-	
-	for (const KeyCallback& function : _keyboard[key])
-		function(action == GLFW_PRESS ? -1.f : 1.f, GetModifiers(mods));
+
+	for (const auto& [idx, callback]: it->second)
+		callback(keyVal, modifiers);
 }
 }

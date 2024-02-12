@@ -5,7 +5,7 @@
 #include "Time/Timeline.h"
 #include "Time/Timer.h"
 
-namespace Inf::Window
+namespace Inf
 {
 class IWindow
 {
@@ -31,7 +31,7 @@ public:
 	{
 		return _lastFrameTime;
 	}
-	
+
 	const Microseconds& GetTargetFrameTime() const
 	{
 		return _targetFrameTime;
@@ -44,7 +44,7 @@ protected:
 
 private:
 	WindowParams _params;
-	
+
 	Timer<> _frameTimer;
 	Timer<> _updateTimer;
 	Microseconds _targetFrameTime{};

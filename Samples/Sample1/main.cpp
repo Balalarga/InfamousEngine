@@ -1,22 +1,30 @@
 #include <iostream>
-
-#include "ISerializable.h"
 #include "GlfwWindow/GlfwWindow.h"
-#include "Resource/VRamBuffer.h"
-#include "Stream/FileStream.h"
-#include "Stream/IStream.h"
+#include "UserInput/InputManager.h"
+#include "nlohmann/json.hpp"
 
 using namespace Inf;
 
 
 int main(int, char**)
 {
-	Window::WindowParams params;
+	WindowParams params;
 	params.fps = 60;
-	
-	const std::unique_ptr<Window::IWindow> window = std::make_unique<Window::GlfwWindow>(params);
-	
+
+	const std::unique_ptr<GlfwWindow> window = std::make_unique<GlfwWindow>(params);
+
+	KeyBindHandle handle(
+		KeyboardButtons::W,
+		[](float val, const std::set<KeyboardModifiers>& mods)
+		{
+			if (val > 0)
+				std::cout << "Pressed\n";
+			else
+				std::cout << "Released\n";
+		});
+
 	window->Run();
-	
+
+
 	return 0;
 }

@@ -15,13 +15,15 @@ public:
 		Binary,
 		Text
 	};
+
+
 	explicit FileStream(std::filesystem::path path, const Stream::Mode& mode, Format format = Format::Binary);
-	
+
 	virtual ~FileStream();
-	
+
 	bool Open() override;
 	void Close() override;
-	
+
 	virtual bool IsValid() const;
 	operator bool() const;
 

@@ -11,14 +11,14 @@ class IStreamFormatter
 {
 public:
 	IStreamFormatter(IStream& stream);
-	virtual	~IStreamFormatter() = default;
+	virtual ~IStreamFormatter() = default;
 
 	virtual void EnterArray();
 	virtual void LeaveArray();
 	virtual void EnterMap();
 	virtual void LeaveMap();
 
-	
+
 	virtual void Serialize(void* ptr, uint64_t size) = 0;
 	virtual void Serialize(uint8_t& data) = 0;
 	virtual void Serialize(uint16_t& data) = 0;
@@ -34,6 +34,7 @@ public:
 	virtual void Serialize(ISerializable* data);
 
 	virtual IStream& GetStream();
+
 
 private:
 	IStream& _stream;

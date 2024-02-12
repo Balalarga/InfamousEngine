@@ -1,17 +1,17 @@
 #pragma once
 #include "gl/glew.h"
 
-#include "GLFW/glfw3.h"
 #include "IWindow.h"
+#include "GLFW/glfw3.h"
 
 
-namespace Inf::Window
+namespace Inf
 {
 class GlfwWindow: public IWindow
 {
 public:
 	explicit GlfwWindow(const WindowParams& params = WindowParams());
-	~GlfwWindow() override;
+	virtual ~GlfwWindow();
 
 	void HandleEvents() override;
 	bool IsValid() const override;
@@ -19,7 +19,6 @@ public:
 	bool IsOpened() const override;
 	void Open() override;
 	void Close(bool forced) override;
-
 
 
 private:

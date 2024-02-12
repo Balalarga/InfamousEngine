@@ -4,11 +4,11 @@
 #include "Time/Time.h"
 
 #if WIN32
-	#include <Windows.h>
-	#include <timeapi.h>
+#include <Windows.h>
+#include <timeapi.h>
 #endif
 
-namespace Inf::Window
+namespace Inf
 {
 IWindow::IWindow(const WindowParams& params) :
 	_params(params),
@@ -37,16 +37,16 @@ void IWindow::Run()
 	while (IsOpened())
 	{
 		_frameTimer.Reset();
-		
+
 		HandleEvents();
-		
+
 		Update(_updateTimer.Reset<Microseconds>());
-		
+
 		if (_params.fps > 0)
 		{
 			DelayTime(_frameTimer.GetPassedTime());
 		}
-		
+
 		_lastFrameTime = _frameTimer.Reset<Microseconds>();
 	}
 	Close();
@@ -58,7 +58,8 @@ void IWindow::DelayTime(const Timeline<>::BaseDuration& passed)
 	if (_targetFrameTime > passed)
 	{
 		// Millisecond is the lowest time, so try to minimize the fault
-		if (std::chrono::duration_cast<Milliseconds>(sleepTime) < std::chrono::duration_cast<Milliseconds>(_targetFrameTime) + Milliseconds{1})
+		if (std::chrono::duration_cast<Milliseconds>(sleepTime) < std::chrono::duration_cast<
+			Milliseconds>(_targetFrameTime) + Milliseconds{1})
 			sleepTime -= Microseconds{1500};
 		std::this_thread::sleep_for(sleepTime);
 	}

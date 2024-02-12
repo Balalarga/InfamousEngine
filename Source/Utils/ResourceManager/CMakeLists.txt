@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(Serialization LANGUAGES CXX)
+project(ResourceManager LANGUAGES CXX)
 
 find_package(nlohmann_json CONFIG REQUIRED)
 
@@ -13,6 +13,5 @@ file(GLOB_RECURSE SOURCE_FILES
 
 add_library(${PROJECT_NAME} ${SOURCE_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
-
-target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json::nlohmann_json)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(${PROJECT_NAME} PUBLIC Utils nlohmann_json::nlohmann_json)
