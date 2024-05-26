@@ -7,8 +7,6 @@
         "glew",
         "nlohmann-json",
         "imgui",
-        "glm",
-        "boost-serialization",
-        "boost-json"
+        "glm"
     ]
 }

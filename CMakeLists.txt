@@ -11,7 +11,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
 
 set(CXX_SOURCE_DIR Source)
 
-add_library(${PROJECT_NAME} INTERFACE IMPORTED)
+add_library(${PROJECT_NAME} INTERFACE IMPORTED
+        Source/Utils/Utils/Utils/Containers/tmp.cpp)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 function(RecursivlyAddSubdirectories TARGET_SOURCE_DIR)
@@ -43,25 +44,7 @@ endfunction()
 # Add common libs
 RecursivlyAddSubdirectories(${CXX_SOURCE_DIR} Core)
 
-# enable_testing()
-# if(${BUILD_TESTING})
-#     add_subdirectory(Tests)
-# endif()
-
 set(IS_MAIN_MODULE ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 if (${IS_MAIN_MODULE})
     add_subdirectory(Samples)
 endif()
-
-if (EXISTS ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
-    file(CREATE_LINK
-        "${CMAKE_BINARY_DIR}/compile_commands.json"
-        "${CMAKE_SOURCE_DIR}/compile_commands.json"
-        SYMBOLIC
-    )
-endif()
-
-add_custom_target(RegenerateProject
-    COMMAND
-        ${CMAKE_SOURCE_DIR}/GenerateProjectFiles.bat
-)
