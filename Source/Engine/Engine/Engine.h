@@ -5,4 +5,7 @@ class Engine
 {
 public:
 	Engine();
+
+
+	void Start();
 };

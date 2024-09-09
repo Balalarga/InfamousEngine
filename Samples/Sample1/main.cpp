@@ -1,9 +1,11 @@
-#include <iostream>
-#include "Engine.h"
+#include "Cmd/ConsoleArgs.h"
+#include "Engine/Engine.h"
 
 
-int main(int, char**)
+int main(int argc, char** argv)
 {
+	ConsoleArgs::Init(argc, argv);
+
 	Engine engine;
 
 
