@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <functional>
 #include <map>
 #include <span>
@@ -29,7 +30,7 @@ public:
 	{
 		return FindAt(_nodes, keys);
 	}
-	
+
 	const TValue* Find(const std::vector<TKey>& keys) const
 	{
 		return Find(std::span(keys));
@@ -44,7 +45,7 @@ public:
 	{
 		return FindAt(_nodes, keys);
 	}
-	
+
 	TValue* Find(const std::vector<TKey>& keys)
 	{
 		return Find(std::span(keys));
@@ -54,7 +55,7 @@ public:
 	{
 		return Find({key});
 	}
-	
+
 	bool Add(const std::span<const TKey>& keys, const TValue& val)
 	{
 		return AddAt(_nodes, keys, val);
@@ -75,7 +76,9 @@ protected:
 	static bool AddAt(TContainer& nodes, std::span<const TKey> keys, const TValue& val)
 	{
 		if (keys.empty())
+		{
 			return false;
+		}
 
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
@@ -95,7 +98,9 @@ protected:
 	{
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
+		{
 			return nullptr;
+		}
 
 		return FindAt(it->second.nodes, keys.subspan(1));
 	}
@@ -103,14 +108,20 @@ protected:
 	static const TValue* FindAt(const TContainer& nodes, std::span<const TKey> keys)
 	{
 		if (keys.empty())
+		{
 			return nullptr;
+		}
 
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
+		{
 			return nullptr;
+		}
 
 		if (keys.size() == 1)
+		{
 			return &it->second.data;
+		}
 
 		return FindAt(it->second.nodes, keys.subspan(1));
 	}
@@ -141,7 +152,7 @@ public:
 	{
 		return FindAt(_nodes, keys);
 	}
-	
+
 	const TValue* Find(const std::vector<TKey>& keys) const
 	{
 		return Find(std::span(keys));
@@ -171,7 +182,7 @@ public:
 	{
 		return Add({key}, val);
 	}
-	
+
 	bool Set(const std::vector<TKey>& keys, const TValue& val)
 	{
 		return SetAt(_nodes, keys, val);
@@ -187,7 +198,9 @@ protected:
 	static bool AddAt(TContainer& nodes, std::span<const TKey> keys, const TValue& val)
 	{
 		if (keys.empty())
+		{
 			return false;
+		}
 
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
@@ -198,7 +211,9 @@ protected:
 		if (keys.size() == 1)
 		{
 			if (it->second.data.has_value())
+			{
 				return false;
+			}
 
 			it->second.data = val;
 			return true;
@@ -206,11 +221,13 @@ protected:
 
 		return AddAt(it->second.nodes, keys.subspan(1), val);
 	}
-	
+
 	static bool SetAt(TContainer& nodes, std::span<const TKey> keys, const TValue& val)
 	{
 		if (keys.empty())
+		{
 			return false;
+		}
 
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
@@ -231,7 +248,9 @@ protected:
 	{
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
+		{
 			return nullptr;
+		}
 
 		return FindAt(it->second.nodes, keys.subspan(1));
 	}
@@ -239,14 +258,20 @@ protected:
 	static const TValue* FindAt(const TContainer& nodes, std::span<const TKey> keys)
 	{
 		if (keys.empty())
+		{
 			return nullptr;
+		}
 
 		auto it = nodes.find(keys.front());
 		if (it == nodes.end())
+		{
 			return nullptr;
+		}
 
 		if (keys.size() == 1 && it->second.data.has_value())
+		{
 			return &it->second.data.value();
+		}
 
 		return FindAt(it->second.nodes, keys.subspan(1));
 	}

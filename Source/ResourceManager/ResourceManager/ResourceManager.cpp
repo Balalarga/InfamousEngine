@@ -5,7 +5,8 @@ namespace Inf {
 ResourceManager::ResourceManager() = default;
 
 bool ResourceManager::MountPath(const std::filesystem::path& aliasPath, const std::filesystem::path& source) {
-	return _mountedDirs.Add(std::vector(aliasPath.begin(), aliasPath.end()), std::filesystem::path(source).make_preferred());
+	return _mountedDirs.Add(std::vector(aliasPath.begin(), aliasPath.end()),
+							std::filesystem::path(source).make_preferred());
 }
 
 const std::filesystem::path* ResourceManager::GetMountedPath(const std::filesystem::path& path) const {

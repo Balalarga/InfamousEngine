@@ -5,19 +5,22 @@ namespace Inf
 {
 VRamBufferLayout& VRamBufferLayout::Float(GLuint count)
 {
-	_varInfos.push_back({GL_FLOAT, static_cast<int>(count), sizeof(GLfloat)}); _size += count * sizeof(GLfloat);
+	_varInfos.push_back({GL_FLOAT, static_cast<int>(count), sizeof(GLfloat)});
+	_size += count * sizeof(GLfloat);
 	return *this;
 }
 
 VRamBufferLayout& VRamBufferLayout::Int(GLuint count)
 {
-	_varInfos.push_back({GL_INT, static_cast<int>(count), sizeof(GLint)}); _size += count * sizeof(GLint);
+	_varInfos.push_back({GL_INT, static_cast<int>(count), sizeof(GLint)});
+	_size += count * sizeof(GLint);
 	return *this;
 }
 
 VRamBufferLayout& VRamBufferLayout::Unsigned(GLuint count)
 {
-	_varInfos.push_back({GL_UNSIGNED_INT, static_cast<int>(count), sizeof(GLuint)}); _size += count * sizeof(GLuint);
+	_varInfos.push_back({GL_UNSIGNED_INT, static_cast<int>(count), sizeof(GLuint)});
+	_size += count * sizeof(GLuint);
 	return *this;
 }
 
@@ -31,10 +34,9 @@ GLsizei VRamBufferLayout::Size() const
 	return static_cast<GLsizei>(_size);
 }
 
-VRamBuffer::VRamBuffer(VRamBufferLayout layout)
-	: _layout(std::move(layout))
-	, _type(static_cast<std::underlying_type_t<Type>>(Type::Array))
-	, _usageMode(static_cast<std::underlying_type_t<UsageMode>>(UsageMode::StaticDraw))
+VRamBuffer::VRamBuffer(VRamBufferLayout layout) :
+	_layout(std::move(layout)), _type(static_cast<std::underlying_type_t<Type>>(Type::Array)),
+	_usageMode(static_cast<std::underlying_type_t<UsageMode>>(UsageMode::StaticDraw))
 {
 }
 
@@ -73,8 +75,10 @@ std::optional<VRamResource::THandle> VRamBuffer::Allocate()
 	unsigned handler = 0;
 	// TODO: exception here
 	if (!_data.Ptr || _data.Count == 0 || _data.Size == 0)
+	{
 		return {};
-	
+	}
+
 	glGenBuffers(1, &handler);
 	glBindBuffer(_type, handler);
 	glBufferData(_type, _data.Count * _data.Size, _data.Ptr, _usageMode);

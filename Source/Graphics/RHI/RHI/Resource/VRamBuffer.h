@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <type_traits>
 #include <vector>
 #include <gl/glew.h>
@@ -26,7 +27,7 @@ public:
 
 	const std::vector<VarInfo>& Variables() const;
 	GLsizei Size() const;
-	
+
 
 private:
 	std::vector<VarInfo> _varInfos;
@@ -43,7 +44,7 @@ concept HasVramLayout = requires(T v)
 class VRamBuffer: protected VRamResource
 {
 public:
-	enum class Type: unsigned
+	enum class Type : unsigned
 	{
 		Array = GL_ARRAY_BUFFER,
 		ElementArray = GL_ELEMENT_ARRAY_BUFFER,
@@ -54,7 +55,7 @@ public:
 		Query = GL_QUERY_BUFFER
 	};
 
-	enum class UsageMode: unsigned
+	enum class UsageMode : unsigned
 	{
 		StaticDraw = GL_STATIC_DRAW,
 		StaticRead = GL_STATIC_READ,
@@ -67,30 +68,30 @@ public:
 		DynamicCopy = GL_DYNAMIC_COPY
 	};
 
-	
+
 	VRamBuffer(VRamBufferLayout layout);
 
 	template<HasVramLayout T>
 	VRamBuffer(std::vector<T>& data);
 
-	
+
 	VRamBuffer& BindData(void* ptr, unsigned size, unsigned count);
-	
+
 	template<class T>
 	VRamBuffer& BindData(std::vector<T>& data);
 
-	
+
 	VRamBuffer& SetType(Type type);
 	VRamBuffer& SetUsageMode(UsageMode usageMode);
 
-	
+
 	Type GetType() const;
 	UsageMode GetUsageMode() const;
 
-	
-	using VRamResource::IsValid;
+
 	using VRamResource::Build;
-	
+	using VRamResource::IsValid;
+
 
 protected:
 	std::optional<THandle> Allocate() override;
@@ -98,21 +99,21 @@ protected:
 
 private:
 	const VRamBufferLayout _layout;
-	
+
 	std::underlying_type_t<Type> _type;
 	std::underlying_type_t<UsageMode> _usageMode;
-	
+
 	struct
 	{
 		void* Ptr = nullptr;
 		unsigned Size = 0;
 		unsigned Count = 0;
-	} _data {};
+	} _data{};
 };
 
 
 template<HasVramLayout T>
-VRamBuffer::VRamBuffer(std::vector<T>& data): VRamBuffer(T::GetVramLayout())
+VRamBuffer::VRamBuffer(std::vector<T>& data) : VRamBuffer(T::GetVramLayout())
 {
 	BindData(data);
 }

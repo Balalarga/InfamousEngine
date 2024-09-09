@@ -21,12 +21,16 @@ Path::Path(const std::filesystem::path& path) {
 std::string Path::ToString() const {
 	std::stringstream stream;
 	if (_hasRoot)
+	{
 		stream << DefaultDelimiter;
+	}
 
 	for (int i = 0; i < _path.size(); ++i) {
 		stream << _path[i];
-		if (i+1 != _path.size() || !_hasExtension) 
+		if (i + 1 != _path.size() || !_hasExtension)
+		{
 			stream << DefaultDelimiter;
+		}
 	}
 	return stream.str();
 }

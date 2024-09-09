@@ -3,24 +3,27 @@
 #include <thread>
 #include "Time/Time.h"
 
+
 #if WIN32
+
 #include <Windows.h>
 #include <timeapi.h>
+
+
 #endif
 
 namespace Inf
 {
-IWindow::IWindow(const WindowParams& params) :
-	_params(params),
-	_frameTimer(false),
-	_updateTimer(false)
+IWindow::IWindow(const WindowParams& params) : _params(params), _frameTimer(false), _updateTimer(false)
 {
 #if WIN32
 	// THINK: App lifetime???
 	timeBeginPeriod(1);
 #endif
 	if (_params.fps > 0)
+	{
 		_targetFrameTime = Microseconds(1'000'000 / _params.fps);
+	}
 }
 
 IWindow::~IWindow()
@@ -58,9 +61,10 @@ void IWindow::DelayTime(const Timeline<>::BaseDuration& passed)
 	if (_targetFrameTime > passed)
 	{
 		// Millisecond is the lowest time, so try to minimize the fault
-		if (std::chrono::duration_cast<Milliseconds>(sleepTime) < std::chrono::duration_cast<
-			Milliseconds>(_targetFrameTime) + Milliseconds{1})
+		if (std::chrono::duration_cast<Milliseconds>(sleepTime) < std::chrono::duration_cast<Milliseconds>(_targetFrameTime) + Milliseconds{1})
+		{
 			sleepTime -= Microseconds{1500};
+		}
 		std::this_thread::sleep_for(sleepTime);
 	}
 }

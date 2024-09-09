@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <memory>
 #include <vector>
 
@@ -14,12 +15,12 @@ class ShaderProgram: public VRamResource, public IRenderBindable
 {
 public:
 	ShaderProgram();
-	
+
 	bool AttachShader(const std::shared_ptr<Shader>& newShader);
-	
+
 	void Bind() override;
-	
-	
+
+
 protected:
 	void PostAllocate() override;
 	std::optional<THandle> Allocate() override;

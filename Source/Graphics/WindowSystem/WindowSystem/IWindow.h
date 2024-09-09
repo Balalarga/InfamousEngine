@@ -1,9 +1,11 @@
 ﻿#pragma once
+
 #include <chrono>
 
 #include "WindowParams.h"
 #include "Time/Timeline.h"
 #include "Time/Timer.h"
+
 
 namespace Inf
 {
@@ -16,7 +18,6 @@ public:
 	virtual void Run();
 
 	virtual void HandleEvents() = 0;
-	virtual bool IsValid() const = 0;
 	virtual void Update(const Microseconds& deltaTime) = 0;
 	virtual bool IsOpened() const = 0;
 	virtual void Open() = 0;
@@ -45,8 +46,8 @@ protected:
 private:
 	WindowParams _params;
 
-	Timer<> _frameTimer;
-	Timer<> _updateTimer;
+	Timer _frameTimer;
+	Timer _updateTimer;
 	Microseconds _targetFrameTime{};
 	Microseconds _lastFrameTime{};
 };

@@ -1,8 +1,9 @@
 #pragma once
+
 #include "gl/glew.h"
 
-#include "IWindow.h"
 #include "GLFW/glfw3.h"
+#include "IWindow.h"
 
 
 namespace Inf
@@ -14,7 +15,6 @@ public:
 	virtual ~GlfwWindow();
 
 	void HandleEvents() override;
-	bool IsValid() const override;
 	void Update(const Microseconds& deltaTime) override;
 	bool IsOpened() const override;
 	void Open() override;

@@ -24,7 +24,7 @@ function(RecursivlyAddSubdirectories TARGET_SOURCE_DIR)
         if (NOT IS_DIRECTORY ${ITEM})
             continue()
         endif ()
-        
+
         set(extra_args ${ARGN})
         if (extra_args)
             set(FOLDER_PATH ${extra_args})

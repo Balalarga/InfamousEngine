@@ -16,9 +16,9 @@ public:
 	Path(Path&&) = default;
 	Path(const Path&) = default;
 	explicit Path(const std::filesystem::path& path);
-	
+
 	std::string ToString() const;
-	
+
 	Path MakeRelative(const Path& root) const;
 
 

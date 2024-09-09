@@ -1,9 +1,10 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
     "name": "infamous-engine",
-    "version": "0.5",
+    "version": "0.1",
     "dependencies": [
         "glfw3",
+        "llgl",
         "glew",
         "nlohmann-json",
         "imgui",

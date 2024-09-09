@@ -13,16 +13,16 @@ VRamResource::~VRamResource()
 bool VRamResource::Build()
 {
 	PreAllocate();
-	
+
 	_handle = Allocate();
 	if (!_handle)
 	{
 		Destruct();
 		return false;
 	}
-	
+
 	PostAllocate();
-	
+
 	return true;
 }
 

@@ -1,21 +1,24 @@
 #pragma once
+
 #include "Timeline.h"
+
 
 namespace Inf
 {
 template <class TClock = DefaultClock>
-class Timer
+class TTimer
 {
 public:
-	explicit Timer(const Timeline<TClock>& timeline = GlobalTimeline<TClock>(), bool autoStart = true):
+	explicit TTimer(const Timeline<TClock>& timeline = GlobalTimeline<TClock>(), bool autoStart = true) :
 		_timeline(timeline)
 	{
 		if (autoStart)
+		{
 			_startTime = _timeline.GetPassedTime();
+		}
 	}
 
-	explicit Timer(bool autoStart):
-		Timer(GlobalTimeline<TClock>(), autoStart)
+	explicit TTimer(bool autoStart) : TTimer(GlobalTimeline<TClock>(), autoStart)
 	{
 	}
 
@@ -45,4 +48,6 @@ private:
 	const Timeline<TClock>& _timeline;
 	typename Timeline<TClock>::BaseDuration _startTime{};
 };
+
+using Timer = TTimer<>;
 }

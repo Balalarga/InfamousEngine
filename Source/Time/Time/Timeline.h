@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Types.h"
 
 
@@ -11,8 +12,7 @@ class Timeline
 public:
 	using BaseDuration = typename TimePoint<TClock>::duration;
 
-	explicit Timeline(const TimePoint<TClock>& point = TClock::now()):
-		_startTime(point)
+	explicit Timeline(const TimePoint<TClock>& point = TClock::now()) : _startTime(point)
 	{
 	}
 

@@ -4,7 +4,7 @@
 namespace Inf
 {
 
-Shader::Shader(Type type, std::string  code): _code(std::move(code)), _type(type)
+Shader::Shader(Type type, std::string code) : _code(std::move(code)), _type(type)
 {
 }
 
@@ -21,7 +21,9 @@ void Shader::Deallocate(const THandle& handler)
 bool Shader::HasError() const
 {
 	if (!GetHandle().has_value())
+	{
 		return true;
+	}
 
 	const THandle handlerValue = GetHandle().value();
 	GLint isCompiled;

@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <string>
 #include <gl/glew.h>
 
@@ -17,7 +18,7 @@ public:
 		Geometry = GL_GEOMETRY_SHADER
 	};
 
-	Shader(Type type, std::string  code);
+	Shader(Type type, std::string code);
 
 	Type GetType() const;
 
