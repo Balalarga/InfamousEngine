@@ -8,6 +8,7 @@ int main(int argc, char** argv)
 
 	Engine engine;
 
+	engine.Start();
 
 	return 0;
 }

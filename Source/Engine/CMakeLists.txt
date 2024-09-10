@@ -18,8 +18,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
-find_package(LLGL CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC LLGL::LLGL LLGL::LLGL_Null)
+add_subdirectory(${CMAKE_SOURCE_DIR}/ThirdParty/LLGL LLGL)
+target_link_libraries(${PROJECT_NAME} PUBLIC LLGL)
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC glm::glm-header-only)
